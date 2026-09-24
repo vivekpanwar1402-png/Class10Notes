@@ -144,7 +144,7 @@ function home(){
         </div>
       </div>
 
-      <div class="grid">
+      <div class="grid tools-grid">
 
         <a class="card subject-card interactive" href="#dates">
           <div>
@@ -184,7 +184,7 @@ function home(){
         </div>
       </div>
 
-      <div class="grid">
+      <div class="grid subjects-grid">
         ${subjectCards()}
       </div>
     </section>
@@ -288,7 +288,7 @@ function progress(){
       <p>A simple view of what you have learned and what needs revision.</p>
     </section>
 
-    <div class="grid">
+    <div class="grid stat-grid">
 
       <article class="card stat-card interactive">
         <div class="stat-label">Overall progress</div>
@@ -334,7 +334,7 @@ function subjects(){
       </p>
     </section>
 
-    <section class="grid">
+    <section class="grid subjects-grid">
       ${subjectCards()}
     </section>
   `;
@@ -398,7 +398,7 @@ document.addEventListener("click",event=>{
 
     window.setTimeout(()=>{
       target.classList.remove("is-pressed");
-    },180);
+    },1000);
   }
 
   const action=event.target.closest("[data-action]")?.dataset.action;

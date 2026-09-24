@@ -19,7 +19,8 @@ export function renderHeader(){
       <div class="header-actions">
         <label
           class="icon-btn interactive"
-          title="Accent color"
+          title="Settings"
+          aria-label="Settings"
           style="cursor:pointer"
         >
           <input
@@ -35,7 +36,21 @@ export function renderHeader(){
               pointer-events:none;
             "
           >
-          <span aria-hidden="true">◉</span>
+          <span aria-hidden="true" style="position:relative">
+            ⚙
+            <i
+              style="
+                position:absolute;
+                right:-2px;
+                bottom:-2px;
+                width:8px;
+                height:8px;
+                border-radius:50%;
+                background:var(--accent-color);
+                border:1px solid var(--border-strong);
+              "
+            ></i>
+          </span>
         </label>
 
         <button

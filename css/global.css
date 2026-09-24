@@ -4,10 +4,10 @@
   --bg:#080b12;
   --bg-soft:#0c1019;
 
-  --surface:rgba(18,23,34,.78);
+  --surface:rgba(14,19,30,.58);
   --surface-solid:#121722;
-  --surface-soft:rgba(25,31,45,.72);
-  --surface-hover:rgba(31,39,56,.86);
+  --surface-soft:rgba(21,27,41,.55);
+  --surface-hover:rgba(29,37,54,.78);
 
   --text:#f4f7fb;
   --text-soft:#c4cbd8;
@@ -40,6 +40,19 @@
 
   --ease:cubic-bezier(.2,.7,.2,1);
   --transition:220ms var(--ease);
+
+  /* ---------------------------------------------------------
+     Original background photo (asset is never altered;
+     darkness is controlled only by the overlay variable)
+  --------------------------------------------------------- */
+  --background-image:url("../assets/background.png");
+  --background-tint:5,8,14;
+  --background-overlay-opacity:.55;
+
+  /* Glassmorphism system */
+  --glass-blur:20px;
+  --header-glass:rgba(9,12,20,.62);
+  --nav-glass:rgba(10,13,22,.72);
 }
 
 html.light{
@@ -62,6 +75,10 @@ html.light{
 
   --shadow-sm:0 5px 18px rgba(15,23,42,.07);
   --shadow-md:0 12px 38px rgba(15,23,42,.10);
+
+  --background-overlay-opacity:.35;
+  --header-glass:rgba(255,255,255,.72);
+  --nav-glass:rgba(255,255,255,.80);
 }
 
 *{
@@ -75,6 +92,7 @@ html{
 body{
   margin:0;
   min-width:320px;
+  overflow-x:clip;
   min-height:100vh;
 
   color:var(--text);
@@ -143,7 +161,28 @@ img{
 }
 
 #app-shell{
+  position:relative;
+  z-index:0;
   min-height:100vh;
+}
+
+/* Original background photo + variable-driven dark overlay */
+#app-shell::before,
+#app-shell::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+#app-shell::before{
+  z-index:-2;
+  background:var(--background-image) center/cover no-repeat;
+}
+
+#app-shell::after{
+  z-index:-1;
+  background:rgba(var(--background-tint),var(--background-overlay-opacity));
 }
 
 #app{
@@ -224,17 +263,14 @@ img{
   top:0;
   z-index:100;
 
+  padding-top:env(safe-area-inset-top,0px);
+
   border-bottom:1px solid var(--border);
 
-  background:
-    color-mix(
-      in srgb,
-      var(--bg) 78%,
-      transparent
-    );
+  background:var(--header-glass);
 
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
 }
 
 .header-inner{
@@ -357,6 +393,8 @@ img{
   background:var(--surface);
   border:1px solid var(--border);
   border-radius:18px;
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
 
   box-shadow:var(--shadow-sm);
 
@@ -440,8 +478,9 @@ img{
 
   box-shadow:var(--shadow-sm);
 
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  padding:20px;
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
 }
 
 .subject-card{
@@ -685,6 +724,8 @@ img{
 }
 
 .flashcard-inner{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
   width:100%;
   min-height:230px;
 
@@ -711,6 +752,8 @@ img{
 ----------------------------------------------------------- */
 
 .quiz-option{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
   width:100%;
 
   padding:15px;
@@ -764,6 +807,8 @@ img{
 ----------------------------------------------------------- */
 
 .empty-state{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
   padding:48px 20px;
 
   text-align:center;
@@ -786,7 +831,9 @@ img{
 
   color:var(--text);
 
-  background:var(--surface-solid);
+  background:var(--nav-glass);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
   border:1px solid var(--border);
 
   border-radius:13px;
@@ -816,7 +863,7 @@ img{
   z-index:120;
 
   left:50%;
-  bottom:14px;
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));
 
   transform:translateX(-50%);
 
@@ -827,12 +874,7 @@ img{
 
   padding:7px;
 
-  background:
-    color-mix(
-      in srgb,
-      var(--surface-solid) 90%,
-      transparent
-    );
+  background:var(--nav-glass);
 
   border:1px solid var(--border);
 
@@ -840,8 +882,8 @@ img{
 
   box-shadow:var(--shadow-md);
 
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
 }
 
 .bottom-nav button{
