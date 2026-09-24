@@ -34,53 +34,163 @@ function home(){
   renderNav("home");
 
   app.innerHTML=`
-    <section class="hero home-hero">
-      <div class="eyebrow">Welcome Back</div>
-      <h1>Keep Learning<span class="hero-dot">.</span></h1>
-      <p>Small steps today,<br>big results tomorrow.</p>
-      <button class="btn btn-primary interactive hero-cta" data-action="subjects">
-        Explore Subjects <span>→</span>
-      </button>
-    </section>
-
-    <section class="card continue-card interactive home-progress-card">
-      <div class="progress-row">
-        <span>No chapter started yet</span>
-        <strong>0%</strong>
+    <section class="hero">
+      <div class="eyebrow">
+        Uttarakhand Board • Class 10
       </div>
-      <div class="progress-track">
-        <div class="progress-fill" style="--progress:0%"></div>
-      </div>
+
+      <h1>
+        Study smarter.<br>
+        Revise with clarity.
+      </h1>
+
+      <p>
+        A calm, focused study space for your Class 10 preparation.
+        Notes, revision, quizzes and progress will live in one place.
+      </p>
+
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+
+        <input
+          id="global-search"
+          type="search"
+          placeholder="Search subjects, chapters or topics..."
+          aria-label="Search"
+        >
+      </label>
     </section>
 
-    <section class="stat-grid home-stats">
-      <article class="card stat-card interactive"><div class="stat-icon">▣</div><div class="stat-label">Chapters</div><div class="stat-value">0</div></article>
-      <article class="card stat-card interactive"><div class="stat-icon">▦</div><div class="stat-label">Dates learned</div><div class="stat-value">0</div></article>
-      <article class="card stat-card interactive"><div class="stat-icon">✓</div><div class="stat-label">Quiz accuracy</div><div class="stat-value">—</div></article>
-      <article class="card stat-card interactive"><div class="stat-icon">♨</div><div class="stat-label">Revision streak</div><div class="stat-value">0</div></article>
-    </section>
-
-    <section class="section home-tools-section">
+    <section class="section">
       <div class="section-heading">
-        <div class="eyebrow">Quick Access</div>
-        <a href="#subjects" class="see-all">See all →</a>
+        <div>
+          <div class="eyebrow">Continue</div>
+          <h2>Your study path</h2>
+        </div>
+
+        <span class="status-pill active">
+          Ready
+        </span>
       </div>
-      <div class="tools-grid">
-        <a class="card subject-card interactive quick-card" href="#dates"><div><div class="subject-icon">◷</div><h3>History Dates</h3><p>Quickly revise important events and dates.</p></div><span class="card-link">Open →</span></a>
-        <a class="card subject-card interactive quick-card" href="#quiz"><div><div class="subject-icon">✓</div><h3>Quiz</h3><p>Test your understanding with focused practice.</p></div><span class="card-link">Start →</span></a>
-        <a class="card subject-card interactive quick-card" href="#revision"><div><div class="subject-icon">▣</div><h3>Revision</h3><p>Use flashcards for fast active recall.</p></div><span class="card-link">Revise →</span></a>
+
+      <div class="dashboard-grid">
+
+        <article class="card continue-card interactive">
+          <div>
+            <div class="eyebrow">Continue Revision</div>
+
+            <h2 style="margin-top:7px">
+              Your next study session
+            </h2>
+
+            <p class="muted" style="margin-top:7px">
+              Your chapter progress will appear here once material is added.
+            </p>
+          </div>
+
+          <div>
+            <div class="status-row">
+              <span class="status-pill">No chapter started</span>
+              <span class="status-pill">0% progress</span>
+            </div>
+
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                style="--progress:0%"
+              ></div>
+            </div>
+
+            <button
+              class="btn btn-primary interactive"
+              style="margin-top:17px"
+              data-action="subjects"
+            >
+              Explore Subjects →
+            </button>
+          </div>
+        </article>
+
+        <div class="stat-grid">
+          <article class="card stat-card interactive">
+            <div class="stat-label">Chapters</div>
+            <div class="stat-value">0</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Dates learned</div>
+            <div class="stat-value">0</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Quiz accuracy</div>
+            <div class="stat-value">—</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Revision streak</div>
+            <div class="stat-value">0</div>
+          </article>
+        </div>
+
       </div>
     </section>
 
     <section class="section">
       <div class="section-heading">
-        <div class="eyebrow">Subjects</div>
-        <a href="#subjects" class="see-all">See all →</a>
+        <div>
+          <div class="eyebrow">Quick Access</div>
+          <h2>Study tools</h2>
+        </div>
       </div>
-      <div class="subjects-grid">${subjectCards()}</div>
+
+      <div class="grid tools-grid">
+
+        <a class="card subject-card interactive" href="#dates">
+          <div>
+            <div class="subject-icon">◷</div>
+            <h3>History Dates</h3>
+            <p>Quickly revise important events and dates.</p>
+          </div>
+          <span class="card-link">Open →</span>
+        </a>
+
+        <a class="card subject-card interactive" href="#quiz">
+          <div>
+            <div class="subject-icon">✓</div>
+            <h3>Quiz</h3>
+            <p>Test your understanding with focused practice.</p>
+          </div>
+          <span class="card-link">Start →</span>
+        </a>
+
+        <a class="card subject-card interactive" href="#revision">
+          <div>
+            <div class="subject-icon">▣</div>
+            <h3>Revision</h3>
+            <p>Use flashcards for fast active recall.</p>
+          </div>
+          <span class="card-link">Revise →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Subjects</div>
+          <h2>Choose your subject</h2>
+        </div>
+      </div>
+
+      <div class="grid subjects-grid">
+        ${subjectCards()}
+      </div>
     </section>
   `;
 }
+
 function dates(){
   renderNav("dates");
 
@@ -326,5 +436,4 @@ renderHeader();
 route();
 
 window.addEventListener("hashchange",route);
-
 

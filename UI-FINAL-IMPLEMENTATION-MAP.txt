@@ -1,0 +1,70 @@
+﻿CLASS10NOTES — FINAL UI IMPLEMENTATION MAP
+Generated: 2026-09-24 23:02:19
+
+===== index.html =====
+Size: 798 chars
+IDs: app, app-header, app-nav, app-shell
+Classes: 
+
+===== css\global.css =====
+Size: 16189 chars
+IDs: 
+Classes: 
+
+===== css\components.css =====
+Size: 5424 chars
+IDs: 
+Classes: 
+
+===== css\responsive.css =====
+Size: 2249 chars
+IDs: 
+Classes: 
+
+===== css\reference-ui.css =====
+Size: 7960 chars
+IDs: 
+Classes: 
+
+===== js\app.js =====
+Size: 10762 chars
+IDs: global-search
+Classes: active, btn, btn-primary, card, card-link, continue-card, dashboard-grid, empty-state, eyebrow, flashcard, flashcard-inner, grid, hero, interactive, muted, progress-fill, progress-track, search-box, section, section-heading, stat-card, stat-grid, stat-label, status-pill, status-row, stat-value, subject-card, subject-icon, subjects-grid, tools-grid
+
+===== js\ui\header.js =====
+Size: 2013 chars
+IDs: accent-picker
+Classes: brand, brand-mark, header-actions, header-inner, icon-btn, interactive
+
+===== js\ui\navigation.js =====
+Size: 616 chars
+IDs: 
+Classes: ${current===id?
+
+===== js\features\material-index.js =====
+Size: 716 chars
+IDs: 
+Classes: 
+
+===== js\features\progress.js =====
+Size: 308 chars
+IDs: 
+Classes: 
+
+===== js\features\quiz-engine.js =====
+Size: 188 chars
+IDs: 
+Classes: 
+
+===== js\features\saved.js =====
+Size: 396 chars
+IDs: 
+Classes: 
+
+===== js\features\search.js =====
+Size: 268 chars
+IDs: 
+Classes: 
+
+===== BACKGROUND =====
+background.jpg EXISTS | 267600 bytes | SHA256 607EFA6C4D498BFB4751385A015585C2B7FEB47562220902BB0BE87362969CBD
