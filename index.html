@@ -40,48 +40,48 @@ header h1{font-size:1.1rem;flex:1;background:linear-gradient(90deg,var(--accent)
 </style>
 </head>
 <body>
-<header><h1>📚 Class 10 Notes</h1><button class="icon-btn" onclick="document.body.classList.toggle('light')">🌙</button></header>
-<div class="search-wrap"><input id="searchBox" placeholder="🔍 Chapter search karo..." oninput="search()"></div>
+<header><h1>&#128218; Class 10 Notes</h1><button class="icon-btn" onclick="document.body.classList.toggle('light')">&#127769;</button></header>
+<div class="search-wrap"><input id="searchBox" placeholder="Chapter search karo..." oninput="search()"></div>
 <div id="home" class="view active"><div class="subjects" id="subjectGrid"></div></div>
-<div id="subjectView" class="view"><button class="back-btn" onclick="goHome()">← Wapas</button><h2 id="subjTitle" style="margin-bottom:14px;"></h2><div id="chapterList"></div></div>
+<div id="subjectView" class="view"><button class="back-btn" onclick="goHome()">&#8592; Wapas</button><h2 id="subjTitle" style="margin-bottom:14px;"></h2><div id="chapterList"></div></div>
 <div id="notesView" class="view">
-<button class="back-btn" onclick="goBack()">← Wapas</button>
+<button class="back-btn" onclick="goBack()">&#8592; Wapas</button>
 <h2 id="chapterTitle" style="margin-bottom:14px;"></h2>
 <div class="tabs">
-<div class="tab active" onclick="switchTab(0,this)">📖 Notes</div>
-<div class="tab" onclick="switchTab(1,this)">📝 Summary</div>
-<div class="tab" onclick="switchTab(2,this)">❓ Questions</div>
-<div class="tab" onclick="switchTab(3,this)">🎯 MCQs</div>
+<div class="tab active" onclick="switchTab(0,this)">Notes</div>
+<div class="tab" onclick="switchTab(1,this)">Summary</div>
+<div class="tab" onclick="switchTab(2,this)">Questions</div>
+<div class="tab" onclick="switchTab(3,this)">MCQs</div>
 </div>
 <div id="tabContent"></div>
 </div>
 <script>
-const DATA = {
-science:{name:"Science",emoji:"🔬",chapters:[
-{id:"sci1",title:"Chemical Reactions & Equations",notes:"<h3>Chemical Reaction</h3><p>Jab substance ka composition badalta hai.</p><h3>Types</h3><ul><li>Combination</li><li>Decomposition</li><li>Displacement</li><li>Double Displacement</li><li>Redox</li></ul>",summary:"Chemical reactions ke types, oxidation-reduction, corrosion aur rancidity.",questions:[{q:"Chemical reaction ke signs?",a:"Gas, temperature change, colour change, precipitate"}],mcqs:[{q:"CaO + H₂O → Ca(OH)₂ kaun sa reaction hai?",opts:["Decomposition","Combination","Displacement","Redox"],ans:1}]},
+var DATA = {
+science:{name:"Science",emoji:"\uD83D\uDD2C",chapters:[
+{id:"sci1",title:"Chemical Reactions & Equations",notes:"<h3>Chemical Reaction</h3><p>Jab substance ka composition badalta hai.</p><h3>Types</h3><ul><li>Combination</li><li>Decomposition</li><li>Displacement</li><li>Double Displacement</li><li>Redox</li></ul>",summary:"Chemical reactions ke types, oxidation-reduction, corrosion aur rancidity.",questions:[{q:"Chemical reaction ke signs?",a:"Gas, temperature change, colour change, precipitate"}],mcqs:[{q:"CaO + H2O - Ca(OH)2 kaun sa reaction hai?",opts:["Decomposition","Combination","Displacement","Redox"],ans:1}]},
 {id:"sci2",title:"Acids, Bases & Salts",notes:"<p>Content jald add hoga...</p>",summary:"...",questions:[],mcqs:[]},
 {id:"sci3",title:"Metals & Non-Metals",notes:"<p>Content jald add hoga...</p>",summary:"...",questions:[],mcqs:[]}
 ]},
-maths:{name:"Maths",emoji:"📐",chapters:[{id:"mat1",title:"Real Numbers",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
-sst:{name:"SST",emoji:"🌍",chapters:[{id:"sst1",title:"Nationalism in Europe",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
-english:{name:"English",emoji:"📖",chapters:[{id:"eng1",title:"A Letter to God",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
-hindi:{name:"Hindi",emoji:"✍️",chapters:[{id:"hin1",title:"Surdas",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
-sanskrit:{name:"Sanskrit",emoji:"🕉️",chapters:[{id:"san1",title:"Chapter 1",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]}
+maths:{name:"Maths",emoji:"\uD83D\uDCD0",chapters:[{id:"mat1",title:"Real Numbers",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+sst:{name:"SST",emoji:"\uD83C\uDF0D",chapters:[{id:"sst1",title:"Nationalism in Europe",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+english:{name:"English",emoji:"\uD83D\uDCD6",chapters:[{id:"eng1",title:"A Letter to God",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+hindi:{name:"Hindi",emoji:"\u270D\uFE0F",chapters:[{id:"hin1",title:"Surdas",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+sanskrit:{name:"Sanskrit",emoji:"\uD83D\uDD49\uFE0F",chapters:[{id:"san1",title:"Chapter 1",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]}
 };
-let curSub=null,curCh=null,curTab=0;
-function renderSubjects(){document.getElementById('subjectGrid').innerHTML=Object.keys(DATA).map((k,i)=>`<div class="subj-card" style="animation-delay:${i*.05}s" onclick="openSubject('${k}')"><span class="emoji">${DATA[k].emoji}</span><h3>${DATA[k].name}</h3><p>${DATA[k].chapters.length} chapters</p></div>`).join('');}
-function openSubject(k){curSub=k;document.getElementById('subjTitle').innerText=DATA[k].emoji+" "+DATA[k].name;document.getElementById('chapterList').innerHTML=DATA[k].chapters.map(c=>`<div class="chapter" onclick="openChapter('${c.id}')"><h4>${c.title}</h4><span>→</span></div>`).join('');showView('subjectView');}
-function openChapter(id){const ch=DATA[curSub].chapters.find(c=>c.id===id);curCh=ch;document.getElementById('chapterTitle').innerText=ch.title;curTab=0;document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));renderTab();showView('notesView');}
-function switchTab(i,el){curTab=i;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTab();}
-function renderTab(){const ch=curCh,b=document.getElementById('tabContent');
-if(curTab===0)b.innerHTML=`<div class="content-box">${ch.notes}</div>`;
-else if(curTab===1)b.innerHTML=`<div class="content-box"><h3>Summary</h3><p>${ch.summary}</p></div>`;
-else if(curTab===2)b.innerHTML=`<div class="content-box">${ch.questions.map((q,i)=>`<div class="mcq"><p>Q${i+1}. ${q.q}</p><details><summary style="color:var(--accent2);cursor:pointer;">Answer</summary><p>${q.a}</p></details></div>`).join('')||'Jald aayega...'}</div>`;
-else b.innerHTML=`<div class="content-box">${ch.mcqs.map((m,i)=>`<div class="mcq"><p>Q${i+1}. ${m.q}</p>${m.opts.map((o,j)=>`<div class="opt" onclick="this.classList.add(${j===m.ans?'\'correct\'':'\'wrong\'"})">${String.fromCharCode(65+j)}. ${o}</div>`).join('')}</div>`).join('')||'Jald aayega...'}</div>`;}
-function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+var curSub=null,curCh=null,curTab=0;
+function renderSubjects(){document.getElementById('subjectGrid').innerHTML=Object.keys(DATA).map(function(k,i){return '<div class="subj-card" style="animation-delay:'+(i*0.05)+'s" onclick="openSubject(\''+k+'\')"><span class="emoji">'+DATA[k].emoji+'</span><h3>'+DATA[k].name+'</h3><p>'+DATA[k].chapters.length+' chapters</p></div>';}).join('');}
+function openSubject(k){curSub=k;document.getElementById('subjTitle').innerText=DATA[k].emoji+" "+DATA[k].name;document.getElementById('chapterList').innerHTML=DATA[k].chapters.map(function(c){return '<div class="chapter" onclick="openChapter(\''+c.id+'\')"><h4>'+c.title+'</h4><span>&#8594;</span></div>';}).join('');showView('subjectView');}
+function openChapter(id){var ch=DATA[curSub].chapters.find(function(c){return c.id===id;});curCh=ch;document.getElementById('chapterTitle').innerText=ch.title;curTab=0;document.querySelectorAll('.tab').forEach(function(t,i){t.classList.toggle('active',i===0);});renderTab();showView('notesView');}
+function switchTab(i,el){curTab=i;document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});el.classList.add('active');renderTab();}
+function renderTab(){var ch=curCh,b=document.getElementById('tabContent');
+if(curTab===0){b.innerHTML='<div class="content-box">'+ch.notes+'</div>';}
+else if(curTab===1){b.innerHTML='<div class="content-box"><h3>Summary</h3><p>'+ch.summary+'</p></div>';}
+else if(curTab===2){b.innerHTML='<div class="content-box">'+(ch.questions.length?ch.questions.map(function(q,i){return '<div class="mcq"><p>Q'+(i+1)+'. '+q.q+'</p><details><summary style="color:#00cec9;cursor:pointer;">Answer</summary><p>'+q.a+'</p></details></div>';}).join(''):'Jald aayega...')+'</div>';}
+else{b.innerHTML='<div class="content-box">'+(ch.mcqs.length?ch.mcqs.map(function(m,i){return '<div class="mcq"><p>Q'+(i+1)+'. '+m.q+'</p>'+m.opts.map(function(o,j){return '<div class="opt" onclick="this.classList.add('+(j===m.ans?"'correct'":"'wrong'")+')">'+String.fromCharCode(65+j)+'. '+o+'</div>';}).join('')+'</div>';}).join(''):'Jald aayega...')+'</div>';}}
+function showView(id){document.querySelectorAll('.view').forEach(function(v){v.classList.remove('active');});document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
 function goHome(){showView('home');}
 function goBack(){curSub?openSubject(curSub):goHome();}
-function search(){const q=document.getElementById('searchBox').value.toLowerCase();if(!q){renderSubjects();return;}const g=document.getElementById('subjectGrid');let r=[];Object.keys(DATA).forEach(k=>DATA[k].chapters.forEach(c=>{if(c.title.toLowerCase().includes(q))r.push({s:k,c});}));g.innerHTML=r.length?r.map(x=>`<div class="subj-card" onclick="openSubject('${x.s}');setTimeout(()=>openChapter('${x.c.id}'),100)"><span class="emoji">${DATA[x.s].emoji}</span><h3>${x.c.title}</h3><p>${DATA[x.s].name}</p></div>`).join(''):'<p style="text-align:center;color:var(--muted);">Kuch nahi mila</p>';}
+function search(){var q=document.getElementById('searchBox').value.toLowerCase();if(!q){renderSubjects();return;}var g=document.getElementById('subjectGrid');var r=[];Object.keys(DATA).forEach(function(k){DATA[k].chapters.forEach(function(c){if(c.title.toLowerCase().indexOf(q)>-1)r.push({s:k,c:c});});});g.innerHTML=r.length?r.map(function(x){return '<div class="subj-card" onclick="openSubject(\''+x.s+'\');setTimeout(function(){openChapter(\''+x.c.id+'\');},100)"><span class="emoji">'+DATA[x.s].emoji+'</span><h3>'+x.c.title+'</h3><p>'+DATA[x.s].name+'</p></div>';}).join(''):'<p style="text-align:center;color:#8a8aa8;">Kuch nahi mila</p>';}
 renderSubjects();
 </script>
 </body>
