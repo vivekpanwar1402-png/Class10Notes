@@ -1,0 +1,12 @@
+﻿@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media(max-width:560px){
+  #app{width:min(100% - 22px,var(--content));padding-top:18px}
+  .header-inner{width:min(100% - 22px,var(--content));min-height:62px}
+  .grid{grid-template-columns:1fr}
+  .hero{padding-top:34px}
+  .hero h1{font-size:2.45rem}
+  .card{padding:17px}
+}
