@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 10 Notes - Uttarakhand Board</title>
+<style>
+:root{--bg:#0f1020;--card:#1a1b30;--text:#e8e8f0;--muted:#8a8aa8;--accent:#6c5ce7;--accent2:#00cec9;--border:#2a2b45;}
+.light{--bg:#f4f5fb;--card:#fff;--text:#1a1b30;--muted:#666;--border:#e2e2ee;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif;}
+body{background:var(--bg);color:var(--text);min-height:100vh;transition:.3s;padding-bottom:80px;}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:12px;z-index:100;}
+header h1{font-size:1.1rem;flex:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.icon-btn{background:var(--card);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:1.1rem;}
+.search-wrap{padding:14px 18px;}
+.search-wrap input{width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.95rem;outline:none;}
+.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;padding:0 18px;}
+.subj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 16px;cursor:pointer;transition:.25s;animation:fadeUp .4s backwards;}
+.subj-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 10px 30px -10px var(--accent);}
+.subj-card .emoji{font-size:2rem;display:block;margin-bottom:8px;}
+.subj-card h3{font-size:1rem;margin-bottom:4px;}
+.subj-card p{font-size:.78rem;color:var(--muted);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+.view{display:none;padding:0 18px;animation:fadeUp .3s;}
+.view.active{display:block;}
+.back-btn{background:none;border:none;color:var(--accent2);cursor:pointer;font-size:.95rem;padding:14px 0;font-weight:600;}
+.chapter{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center;}
+.chapter:hover{border-color:var(--accent2);transform:translateX(4px);}
+.content-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;line-height:1.7;}
+.content-box h3{font-size:1rem;margin:14px 0 8px;color:var(--accent);}
+.content-box p,.content-box li{font-size:.92rem;margin-bottom:8px;}
+.content-box ul{padding-left:20px;margin-bottom:10px;}
+.tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.tab{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.82rem;white-space:nowrap;}
+.tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.mcq{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;}
+.opt{padding:9px 12px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;cursor:pointer;font-size:.85rem;}
+.opt.correct{background:#00b89433;border-color:#00b894;}
+.opt.wrong{background:#ff767533;border-color:#ff7675;}
+</style>
+</head>
+<body>
+<header><h1>📚 Class 10 Notes</h1><button class="icon-btn" onclick="document.body.classList.toggle('light')">🌙</button></header>
+<div class="search-wrap"><input id="searchBox" placeholder="🔍 Chapter search karo..." oninput="search()"></div>
+<div id="home" class="view active"><div class="subjects" id="subjectGrid"></div></div>
+<div id="subjectView" class="view"><button class="back-btn" onclick="goHome()">← Wapas</button><h2 id="subjTitle" style="margin-bottom:14px;"></h2><div id="chapterList"></div></div>
+<div id="notesView" class="view">
+<button class="back-btn" onclick="goBack()">← Wapas</button>
+<h2 id="chapterTitle" style="margin-bottom:14px;"></h2>
+<div class="tabs">
+<div class="tab active" onclick="switchTab(0,this)">📖 Notes</div>
+<div class="tab" onclick="switchTab(1,this)">📝 Summary</div>
+<div class="tab" onclick="switchTab(2,this)">❓ Questions</div>
+<div class="tab" onclick="switchTab(3,this)">🎯 MCQs</div>
+</div>
+<div id="tabContent"></div>
+</div>
+<script>
+const DATA = {
+science:{name:"Science",emoji:"🔬",chapters:[
+{id:"sci1",title:"Chemical Reactions & Equations",notes:"<h3>Chemical Reaction</h3><p>Jab substance ka composition badalta hai.</p><h3>Types</h3><ul><li>Combination</li><li>Decomposition</li><li>Displacement</li><li>Double Displacement</li><li>Redox</li></ul>",summary:"Chemical reactions ke types, oxidation-reduction, corrosion aur rancidity.",questions:[{q:"Chemical reaction ke signs?",a:"Gas, temperature change, colour change, precipitate"}],mcqs:[{q:"CaO + H₂O → Ca(OH)₂ kaun sa reaction hai?",opts:["Decomposition","Combination","Displacement","Redox"],ans:1}]},
+{id:"sci2",title:"Acids, Bases & Salts",notes:"<p>Content jald add hoga...</p>",summary:"...",questions:[],mcqs:[]},
+{id:"sci3",title:"Metals & Non-Metals",notes:"<p>Content jald add hoga...</p>",summary:"...",questions:[],mcqs:[]}
+]},
+maths:{name:"Maths",emoji:"📐",chapters:[{id:"mat1",title:"Real Numbers",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+sst:{name:"SST",emoji:"🌍",chapters:[{id:"sst1",title:"Nationalism in Europe",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+english:{name:"English",emoji:"📖",chapters:[{id:"eng1",title:"A Letter to God",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+hindi:{name:"Hindi",emoji:"✍️",chapters:[{id:"hin1",title:"Surdas",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]},
+sanskrit:{name:"Sanskrit",emoji:"🕉️",chapters:[{id:"san1",title:"Chapter 1",notes:"<p>...</p>",summary:"...",questions:[],mcqs:[]}]}
+};
+let curSub=null,curCh=null,curTab=0;
+function renderSubjects(){document.getElementById('subjectGrid').innerHTML=Object.keys(DATA).map((k,i)=>`<div class="subj-card" style="animation-delay:${i*.05}s" onclick="openSubject('${k}')"><span class="emoji">${DATA[k].emoji}</span><h3>${DATA[k].name}</h3><p>${DATA[k].chapters.length} chapters</p></div>`).join('');}
+function openSubject(k){curSub=k;document.getElementById('subjTitle').innerText=DATA[k].emoji+" "+DATA[k].name;document.getElementById('chapterList').innerHTML=DATA[k].chapters.map(c=>`<div class="chapter" onclick="openChapter('${c.id}')"><h4>${c.title}</h4><span>→</span></div>`).join('');showView('subjectView');}
+function openChapter(id){const ch=DATA[curSub].chapters.find(c=>c.id===id);curCh=ch;document.getElementById('chapterTitle').innerText=ch.title;curTab=0;document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===0));renderTab();showView('notesView');}
+function switchTab(i,el){curTab=i;document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');renderTab();}
+function renderTab(){const ch=curCh,b=document.getElementById('tabContent');
+if(curTab===0)b.innerHTML=`<div class="content-box">${ch.notes}</div>`;
+else if(curTab===1)b.innerHTML=`<div class="content-box"><h3>Summary</h3><p>${ch.summary}</p></div>`;
+else if(curTab===2)b.innerHTML=`<div class="content-box">${ch.questions.map((q,i)=>`<div class="mcq"><p>Q${i+1}. ${q.q}</p><details><summary style="color:var(--accent2);cursor:pointer;">Answer</summary><p>${q.a}</p></details></div>`).join('')||'Jald aayega...'}</div>`;
+else b.innerHTML=`<div class="content-box">${ch.mcqs.map((m,i)=>`<div class="mcq"><p>Q${i+1}. ${m.q}</p>${m.opts.map((o,j)=>`<div class="opt" onclick="this.classList.add(${j===m.ans?'\'correct\'':'\'wrong\'"})">${String.fromCharCode(65+j)}. ${o}</div>`).join('')}</div>`).join('')||'Jald aayega...'}</div>`;}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function goHome(){showView('home');}
+function goBack(){curSub?openSubject(curSub):goHome();}
+function search(){const q=document.getElementById('searchBox').value.toLowerCase();if(!q){renderSubjects();return;}const g=document.getElementById('subjectGrid');let r=[];Object.keys(DATA).forEach(k=>DATA[k].chapters.forEach(c=>{if(c.title.toLowerCase().includes(q))r.push({s:k,c});}));g.innerHTML=r.length?r.map(x=>`<div class="subj-card" onclick="openSubject('${x.s}');setTimeout(()=>openChapter('${x.c.id}'),100)"><span class="emoji">${DATA[x.s].emoji}</span><h3>${x.c.title}</h3><p>${DATA[x.s].name}</p></div>`).join(''):'<p style="text-align:center;color:var(--muted);">Kuch nahi mila</p>';}
+renderSubjects();
+</script>
+</body>
+</html>
