@@ -436,4 +436,3 @@ renderHeader();
 route();
 
 window.addEventListener("hashchange",route);
-

@@ -1,0 +1,2202 @@
+﻿CLASS10NOTES UI SOURCE SNAPSHOT
+HEAD: a518a67 feat: implement mobile-first glass UI redesign
+GENERATED: 2026-09-24 20:25:43
+
+
+==================== index.html ====================
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d16">
+<meta name="description" content="Class 10 Notes — a clean, fast and student-friendly study companion for Uttarakhand Board.">
+<title>Class 10 Notes</title>
+<link rel="stylesheet" href="./css/global.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+<div id="app-shell">
+<header id="app-header"></header>
+<main id="app" tabindex="-1"></main>
+<nav id="app-nav" aria-label="Primary navigation"></nav>
+</div>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
+
+
+==================== css\global.css ====================
+
+:root{
+  color-scheme:dark;
+
+  --bg:#080b12;
+  --bg-soft:#0c1019;
+
+  --surface:rgba(14,19,30,.58);
+  --surface-solid:#121722;
+  --surface-soft:rgba(21,27,41,.55);
+  --surface-hover:rgba(29,37,54,.78);
+
+  --text:#f4f7fb;
+  --text-soft:#c4cbd8;
+  --muted:#858e9f;
+
+  --border:rgba(255,255,255,.075);
+  --border-strong:rgba(255,255,255,.12);
+
+  --accent-color:#22D3EE;
+  --accent-rgb:34,211,238;
+
+  --accent-soft:rgba(var(--accent-rgb),.10);
+  --accent-border:rgba(var(--accent-rgb),.25);
+  --accent-glow:rgba(var(--accent-rgb),.13);
+  --accent-glow-strong:rgba(var(--accent-rgb),.20);
+
+  --success:#43d39a;
+  --danger:#ff6b7a;
+  --warning:#f2bd62;
+
+  --shadow-sm:0 5px 18px rgba(0,0,0,.18);
+  --shadow-md:0 12px 38px rgba(0,0,0,.24);
+
+  --radius-sm:10px;
+  --radius-md:16px;
+  --radius-lg:22px;
+  --radius-xl:28px;
+
+  --content:1180px;
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --transition:220ms var(--ease);
+
+  /* ---------------------------------------------------------
+     Original background photo (asset is never altered;
+     darkness is controlled only by the overlay variable)
+  --------------------------------------------------------- */
+  --background-image:url("../assets/background.png");
+  --background-tint:5,8,14;
+  --background-overlay-opacity:.55;
+
+  /* Glassmorphism system */
+  --glass-blur:20px;
+  --header-glass:rgba(9,12,20,.62);
+  --nav-glass:rgba(10,13,22,.72);
+}
+
+html.light{
+  color-scheme:light;
+
+  --bg:#f5f7fa;
+  --bg-soft:#edf1f6;
+
+  --surface:rgba(255,255,255,.78);
+  --surface-solid:#ffffff;
+  --surface-soft:rgba(247,249,252,.84);
+  --surface-hover:#ffffff;
+
+  --text:#121722;
+  --text-soft:#444d5c;
+  --muted:#717b8c;
+
+  --border:rgba(15,23,42,.09);
+  --border-strong:rgba(15,23,42,.14);
+
+  --shadow-sm:0 5px 18px rgba(15,23,42,.07);
+  --shadow-md:0 12px 38px rgba(15,23,42,.10);
+
+  --background-overlay-opacity:.35;
+  --header-glass:rgba(255,255,255,.72);
+  --nav-glass:rgba(255,255,255,.80);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  min-width:320px;
+  overflow-x:clip;
+  min-height:100vh;
+
+  color:var(--text);
+
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(var(--accent-rgb),.035),
+      transparent 38%
+    ),
+    var(--bg);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+
+  transition:
+    background-color .25s ease,
+    color .25s ease;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  display:block;
+  max-width:100%;
+}
+
+[hidden]{
+  display:none!important;
+}
+
+:focus-visible{
+  outline:
+    2px solid
+    var(--accent-color);
+  outline-offset:3px;
+}
+
+::selection{
+  color:var(--text);
+  background:rgba(var(--accent-rgb),.24);
+}
+
+#app-shell{
+  position:relative;
+  z-index:0;
+  min-height:100vh;
+}
+
+/* Original background photo + variable-driven dark overlay */
+#app-shell::before,
+#app-shell::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+}
+
+#app-shell::before{
+  z-index:-2;
+  background:var(--background-image) center/cover no-repeat;
+}
+
+#app-shell::after{
+  z-index:-1;
+  background:rgba(var(--background-tint),var(--background-overlay-opacity));
+}
+
+#app{
+  width:min(calc(100% - 32px),var(--content));
+  margin:0 auto;
+  padding:30px 0 110px;
+}
+
+/* -----------------------------------------------------------
+   Ambient interaction system
+----------------------------------------------------------- */
+
+.interactive{
+  position:relative;
+  isolation:isolate;
+  transition:
+    transform var(--transition),
+    background-color var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.interactive::after{
+  content:"";
+  position:absolute;
+  inset:-12px;
+  z-index:-1;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      circle at center,
+      var(--accent-glow),
+      transparent 68%
+    );
+
+  opacity:0;
+  filter:blur(13px);
+
+  transition:
+    opacity 240ms var(--ease);
+}
+
+.interactive:hover{
+  transform:translateY(-1px);
+  background:var(--surface-hover);
+  border-color:var(--accent-border);
+
+  box-shadow:
+    var(--shadow-sm),
+    0 8px 30px rgba(var(--accent-rgb),.055);
+}
+
+.interactive:hover::after{
+  opacity:1;
+}
+
+.interactive:active{
+  transform:translateY(0) scale(.985);
+  transition-duration:100ms;
+
+  box-shadow:
+    var(--shadow-sm),
+    0 5px 22px var(--accent-glow);
+}
+
+.interactive.is-pressed::after{
+  opacity:1;
+}
+
+/* -----------------------------------------------------------
+   Header
+----------------------------------------------------------- */
+
+.app-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+
+  padding-top:env(safe-area-inset-top,0px);
+
+  border-bottom:1px solid var(--border);
+
+  background:var(--header-glass);
+
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.header-inner{
+  width:min(calc(100% - 32px),var(--content));
+  min-height:70px;
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  color:var(--text);
+  background:transparent;
+
+  font-weight:800;
+  letter-spacing:-.025em;
+}
+
+.brand-mark{
+  width:38px;
+  height:38px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:12px;
+
+  color:var(--text);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(var(--accent-rgb),.18),
+      rgba(var(--accent-rgb),.06)
+    );
+
+  border:1px solid var(--accent-border);
+
+  box-shadow:
+    0 6px 22px rgba(var(--accent-rgb),.08);
+}
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+
+  display:grid;
+  place-items:center;
+
+  color:var(--text);
+
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:13px;
+}
+
+/* -----------------------------------------------------------
+   Hero
+----------------------------------------------------------- */
+
+.hero{
+  padding:clamp(30px,6vw,62px) 0 30px;
+}
+
+.eyebrow{
+  color:var(--accent-color);
+
+  font-size:.74rem;
+  font-weight:800;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin:9px 0 12px;
+
+  max-width:760px;
+
+  font-size:clamp(2.25rem,6vw,4.35rem);
+  line-height:1.02;
+
+  letter-spacing:-.055em;
+}
+
+.hero p{
+  max-width:690px;
+
+  color:var(--text-soft);
+
+  font-size:1.03rem;
+}
+
+/* -----------------------------------------------------------
+   Search
+----------------------------------------------------------- */
+
+.search-box{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  margin-top:24px;
+  padding:6px 8px 6px 16px;
+
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+
+  box-shadow:var(--shadow-sm);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition),
+    background var(--transition);
+}
+
+.search-box:focus-within{
+  border-color:var(--accent-border);
+
+  box-shadow:
+    var(--shadow-sm),
+    0 8px 30px rgba(var(--accent-rgb),.055);
+}
+
+.search-box input{
+  width:100%;
+  min-height:44px;
+
+  border:0;
+  outline:0;
+
+  color:var(--text);
+  background:transparent;
+}
+
+.search-box input::placeholder{
+  color:var(--muted);
+}
+
+/* -----------------------------------------------------------
+   Sections / Cards
+----------------------------------------------------------- */
+
+.section{
+  margin-top:34px;
+}
+
+.section-heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+
+  margin-bottom:15px;
+}
+
+.section-heading h2{
+  margin:3px 0 0;
+
+  font-size:1.28rem;
+  letter-spacing:-.025em;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+.card{
+  position:relative;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.025),
+      transparent 55%
+    ),
+    var(--surface);
+
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+
+  box-shadow:var(--shadow-sm);
+
+  padding:20px;
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.subject-card{
+  min-height:184px;
+  padding:20px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.subject-icon{
+  font-size:28px;
+}
+
+.subject-card h3{
+  margin:12px 0 4px;
+
+  font-size:1.04rem;
+  letter-spacing:-.015em;
+}
+
+.subject-card p{
+  margin:0;
+
+  color:var(--muted);
+  font-size:.89rem;
+}
+
+.card-link{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  margin-top:18px;
+
+  color:var(--accent-color);
+  font-weight:750;
+}
+
+/* -----------------------------------------------------------
+   Dashboard modules
+----------------------------------------------------------- */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:1.45fr 1fr;
+  gap:14px;
+}
+
+.continue-card{
+  min-height:250px;
+  padding:25px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.progress-track{
+  height:7px;
+  overflow:hidden;
+
+  margin-top:15px;
+
+  background:rgba(255,255,255,.06);
+  border-radius:999px;
+}
+
+.progress-fill{
+  height:100%;
+  width:var(--progress,0%);
+
+  border-radius:inherit;
+
+  background:var(--accent-color);
+
+  box-shadow:
+    0 0 18px rgba(var(--accent-rgb),.20);
+
+  transition:width .45s var(--ease);
+}
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.stat-card{
+  padding:17px;
+}
+
+.stat-value{
+  margin-top:5px;
+
+  font-size:1.55rem;
+  font-weight:800;
+  letter-spacing:-.035em;
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:.82rem;
+}
+
+/* -----------------------------------------------------------
+   Buttons
+----------------------------------------------------------- */
+
+.btn{
+  min-height:44px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+
+  padding:9px 15px;
+
+  color:var(--text);
+
+  background:var(--surface);
+  border:1px solid var(--border);
+
+  border-radius:13px;
+}
+
+.btn-primary{
+  color:#031015;
+
+  background:var(--accent-color);
+  border-color:transparent;
+
+  font-weight:800;
+
+  box-shadow:
+    0 7px 24px rgba(var(--accent-rgb),.12);
+}
+
+.btn-primary:hover{
+  background:
+    color-mix(
+      in srgb,
+      var(--accent-color) 88%,
+      white
+    );
+}
+
+/* -----------------------------------------------------------
+   Pills / filters
+----------------------------------------------------------- */
+
+.status-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.status-pill{
+  padding:6px 10px;
+
+  color:var(--muted);
+
+  background:var(--surface-soft);
+  border:1px solid var(--border);
+
+  border-radius:999px;
+
+  font-size:.78rem;
+}
+
+.status-pill.active{
+  color:var(--accent-color);
+  border-color:var(--accent-border);
+  background:var(--accent-soft);
+}
+
+/* -----------------------------------------------------------
+   Timeline
+----------------------------------------------------------- */
+
+.timeline{
+  position:relative;
+  padding-left:24px;
+}
+
+.timeline::before{
+  content:"";
+
+  position:absolute;
+  top:5px;
+  bottom:5px;
+  left:6px;
+
+  width:1px;
+
+  background:var(--border-strong);
+}
+
+.timeline-item{
+  position:relative;
+
+  margin-bottom:15px;
+  padding:17px 18px;
+}
+
+.timeline-item::before{
+  content:"";
+
+  position:absolute;
+  left:-22px;
+  top:23px;
+
+  width:9px;
+  height:9px;
+
+  border-radius:50%;
+
+  background:var(--accent-color);
+
+  box-shadow:
+    0 0 0 5px rgba(var(--accent-rgb),.07);
+}
+
+/* -----------------------------------------------------------
+   Flashcard
+----------------------------------------------------------- */
+
+.flashcard{
+  min-height:290px;
+
+  display:grid;
+  place-items:center;
+
+  padding:30px;
+
+  text-align:center;
+
+  perspective:1000px;
+}
+
+.flashcard-inner{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  width:100%;
+  min-height:230px;
+
+  display:grid;
+  place-items:center;
+
+  border-radius:var(--radius-lg);
+
+  background:var(--surface);
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow-md);
+
+  transition:
+    transform .45s var(--ease);
+}
+
+.flashcard.flipped .flashcard-inner{
+  transform:rotateY(180deg);
+}
+
+/* -----------------------------------------------------------
+   Quiz
+----------------------------------------------------------- */
+
+.quiz-option{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  width:100%;
+
+  padding:15px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  text-align:left;
+
+  color:var(--text);
+
+  background:var(--surface);
+  border:1px solid var(--border);
+
+  border-radius:14px;
+
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.quiz-option:hover{
+  border-color:var(--accent-border);
+  background:var(--surface-hover);
+
+  box-shadow:
+    0 7px 24px rgba(var(--accent-rgb),.045);
+}
+
+.quiz-option.selected{
+  color:var(--accent-color);
+  background:var(--accent-soft);
+  border-color:var(--accent-border);
+}
+
+.quiz-option.correct{
+  border-color:rgba(67,211,154,.42);
+  background:rgba(67,211,154,.08);
+}
+
+.quiz-option.incorrect{
+  border-color:rgba(255,107,122,.42);
+  background:rgba(255,107,122,.08);
+}
+
+/* -----------------------------------------------------------
+   Empty / toast
+----------------------------------------------------------- */
+
+.empty-state{
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  padding:48px 20px;
+
+  text-align:center;
+
+  background:var(--surface);
+  border:1px dashed var(--border-strong);
+  border-radius:var(--radius-md);
+}
+
+.toast{
+  position:fixed;
+  z-index:200;
+
+  right:18px;
+  bottom:84px;
+
+  max-width:min(360px,calc(100% - 36px));
+
+  padding:12px 15px;
+
+  color:var(--text);
+
+  background:var(--nav-glass);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  border:1px solid var(--border);
+
+  border-radius:13px;
+
+  box-shadow:var(--shadow-md);
+
+  animation:toast-in .22s var(--ease);
+}
+
+@keyframes toast-in{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* -----------------------------------------------------------
+   Bottom navigation
+----------------------------------------------------------- */
+
+.bottom-nav{
+  position:fixed;
+  z-index:120;
+
+  left:50%;
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));
+
+  transform:translateX(-50%);
+
+  width:min(calc(100% - 24px),560px);
+
+  display:flex;
+  gap:5px;
+
+  padding:7px;
+
+  background:var(--nav-glass);
+
+  border:1px solid var(--border);
+
+  border-radius:20px;
+
+  box-shadow:var(--shadow-md);
+
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.bottom-nav button{
+  position:relative;
+
+  flex:1;
+  min-height:48px;
+
+  color:var(--muted);
+
+  background:transparent;
+
+  border-radius:14px;
+
+  transition:
+    color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.bottom-nav button:hover{
+  color:var(--text);
+  background:var(--surface-soft);
+}
+
+.bottom-nav button.active{
+  color:var(--accent-color);
+  background:var(--accent-soft);
+
+  box-shadow:
+    0 5px 20px rgba(var(--accent-rgb),.045);
+}
+
+.bottom-nav button.active::after{
+  content:"";
+
+  position:absolute;
+  inset:3px;
+
+  z-index:-1;
+
+  border-radius:inherit;
+
+  background:
+    radial-gradient(
+      circle at center,
+      var(--accent-glow),
+      transparent 70%
+    );
+
+  filter:blur(7px);
+}
+
+/* -----------------------------------------------------------
+   Reduced motion
+----------------------------------------------------------- */
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
+
+==================== css\components.css ====================
+
+/* Component layer â€” glass UI, aligned with global.css tokens */
+
+.app-header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding-top:env(safe-area-inset-top,0px);
+  border-bottom:1px solid var(--border);
+  background:var(--header-glass);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.header-inner{
+  width:min(100% - 32px,var(--content));
+  min-height:68px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:800;
+  letter-spacing:-.02em;
+}
+
+.brand-mark{
+  width:38px;
+  height:38px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  background:linear-gradient(145deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.06));
+  border:1px solid var(--accent-border);
+  color:var(--text);
+  font-weight:900;
+  box-shadow:0 6px 22px rgba(var(--accent-rgb),.08);
+}
+
+.header-actions{display:flex;gap:8px}
+
+.icon-btn,.nav-btn{
+  min-width:42px;
+  min-height:42px;
+  padding:9px 12px;
+  border-radius:12px;
+  background:var(--surface-soft);
+  color:var(--text);
+  border:1px solid var(--border);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.icon-btn:hover,.nav-btn:hover{
+  background:var(--surface-hover);
+  border-color:var(--accent-border);
+}
+
+.hero{
+  padding:clamp(30px,7vw,72px) 0 34px;
+}
+
+.eyebrow{
+  color:var(--accent-color);
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+
+.hero h1{
+  margin:8px 0 10px;
+  font-size:clamp(2rem,6vw,4rem);
+  line-height:1.02;
+  letter-spacing:-.045em;
+}
+
+.hero p{
+  max-width:680px;
+  color:var(--text-soft);
+  font-size:1.05rem;
+}
+
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:24px;
+  padding:6px 8px 6px 16px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:18px;
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.search-box input{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  min-height:44px;
+}
+
+.section{margin-top:34px}
+
+.section-heading{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:14px;
+}
+
+.section-heading h2{font-size:1.25rem;letter-spacing:-.02em}
+.muted{color:var(--muted)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.subject-card{
+  min-height:170px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:transform .18s ease,border-color .18s ease;
+}
+
+.subject-card:hover{
+  transform:translateY(-2px);
+  border-color:color-mix(in srgb,var(--accent-color) 55%,var(--border));
+}
+
+.subject-icon{font-size:30px}
+.subject-card h3{margin-top:10px;font-size:1.05rem}
+.subject-card p{margin-top:5px;color:var(--muted);font-size:.9rem}
+
+.card-link{
+  margin-top:16px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:var(--accent-color);
+  font-weight:750;
+}
+
+.empty-state{
+  text-align:center;
+  padding:45px 20px;
+  border:1px dashed var(--border);
+  border-radius:var(--radius-md);
+  background:var(--surface);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.bottom-nav{
+  position:fixed;
+  z-index:120;
+  left:50%;
+  bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  transform:translateX(-50%);
+  width:min(calc(100% - 24px),520px);
+  display:flex;
+  justify-content:space-around;
+  gap:6px;
+  padding:7px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--nav-glass);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+  box-shadow:var(--shadow-md);
+}
+
+.bottom-nav button{
+  flex:1;
+  min-height:46px;
+  border-radius:14px;
+  background:transparent;
+  color:var(--muted);
+}
+
+.bottom-nav button.active{
+  background:var(--accent-soft);
+  color:var(--accent-color);
+  box-shadow:0 5px 20px rgba(var(--accent-rgb),.045);
+}
+
+.toast{
+  position:fixed;
+  z-index:200;
+  right:18px;
+  bottom:84px;
+  max-width:min(360px,calc(100% - 36px));
+  padding:12px 15px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:var(--nav-glass);
+  color:var(--text);
+  box-shadow:var(--shadow-md);
+  backdrop-filter:blur(var(--glass-blur));
+  -webkit-backdrop-filter:blur(var(--glass-blur));
+}
+
+.status-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.status-pill{
+  padding:6px 10px;
+  border-radius:999px;
+  background:var(--surface-soft);
+  border:1px solid var(--border);
+  color:var(--muted);
+  font-size:.82rem;
+}
+
+.status-pill.active{
+  color:var(--accent-color);
+  background:var(--accent-soft);
+  border-color:var(--accent-border);
+}
+
+==================== css\responsive.css ====================
+
+/* ============================================================
+   Breakpoints
+   mobile  : <600px  (360 / 375 / 390 / 412 / 430)
+   tablet  : 600â€“1024px
+   desktop : >1024px
+   ============================================================ */
+
+/* ---------- Tablet ---------- */
+@media(max-width:1024px){
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1.3fr 1fr;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media(max-width:599px){
+  #app{
+    width:min(calc(100% - 22px),var(--content));
+    padding-top:18px;
+    padding-bottom:124px;
+  }
+
+  .header-inner{
+    width:min(calc(100% - 22px),var(--content));
+    min-height:60px;
+  }
+
+  .hero{
+    padding-top:30px;
+  }
+
+  .hero h1{
+    font-size:2.4rem;
+  }
+
+  .hero p{
+    font-size:.97rem;
+  }
+
+  .section{
+    margin-top:26px;
+  }
+
+  .section-heading{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .subjects-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .tools-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+  }
+
+  .tools-grid .subject-card{
+    min-height:0;
+    padding:14px 8px;
+    text-align:center;
+    align-items:center;
+  }
+
+  .tools-grid .subject-card p{
+    display:none;
+  }
+
+  .tools-grid .card-link{
+    margin-top:10px;
+    font-size:.8rem;
+    justify-content:center;
+  }
+
+  .subject-card{
+    min-height:152px;
+    padding:16px;
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .continue-card{
+    padding:20px;
+  }
+
+  .flashcard{
+    min-height:250px;
+    padding:20px;
+  }
+
+  .bottom-nav{
+    bottom:calc(9px + env(safe-area-inset-bottom,0px));
+    width:calc(100% - 18px);
+    gap:3px;
+    padding:6px;
+  }
+
+  .bottom-nav button{
+    min-height:48px;
+    font-size:.8rem;
+  }
+}
+
+/* ---------- Small mobile ---------- */
+@media(max-width:390px){
+  .bottom-nav button{
+    font-size:.72rem;
+  }
+
+  .brand span:last-child{
+    font-size:.9rem;
+  }
+
+  .hero h1{
+    font-size:2.15rem;
+  }
+}
+
+==================== js\app.js ====================
+
+import {SUBJECTS} from "../data/subjects.js";
+import {renderHeader} from "./ui/header.js";
+import {renderNav} from "./ui/navigation.js";
+import {
+  applyAccent,
+  getTheme,
+  toggleTheme
+} from "./core/theme.js";
+
+const app=document.querySelector("#app");
+
+function subjectCards(list=SUBJECTS){
+  return list.map(subject=>`
+    <article class="card subject-card interactive">
+      <div>
+        <div class="subject-icon" aria-hidden="true">${subject.emoji}</div>
+
+        <h3>${subject.name}</h3>
+
+        <p>${subject.description}</p>
+      </div>
+
+      <a
+        class="card-link"
+        href="#subject/${subject.id}"
+      >
+        Explore →
+      </a>
+    </article>
+  `).join("");
+}
+
+function home(){
+  renderNav("home");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">
+        Uttarakhand Board • Class 10
+      </div>
+
+      <h1>
+        Study smarter.<br>
+        Revise with clarity.
+      </h1>
+
+      <p>
+        A calm, focused study space for your Class 10 preparation.
+        Notes, revision, quizzes and progress will live in one place.
+      </p>
+
+      <label class="search-box">
+        <span aria-hidden="true">⌕</span>
+
+        <input
+          id="global-search"
+          type="search"
+          placeholder="Search subjects, chapters or topics..."
+          aria-label="Search"
+        >
+      </label>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Continue</div>
+          <h2>Your study path</h2>
+        </div>
+
+        <span class="status-pill active">
+          Ready
+        </span>
+      </div>
+
+      <div class="dashboard-grid">
+
+        <article class="card continue-card interactive">
+          <div>
+            <div class="eyebrow">Continue Revision</div>
+
+            <h2 style="margin-top:7px">
+              Your next study session
+            </h2>
+
+            <p class="muted" style="margin-top:7px">
+              Your chapter progress will appear here once material is added.
+            </p>
+          </div>
+
+          <div>
+            <div class="status-row">
+              <span class="status-pill">No chapter started</span>
+              <span class="status-pill">0% progress</span>
+            </div>
+
+            <div class="progress-track">
+              <div
+                class="progress-fill"
+                style="--progress:0%"
+              ></div>
+            </div>
+
+            <button
+              class="btn btn-primary interactive"
+              style="margin-top:17px"
+              data-action="subjects"
+            >
+              Explore Subjects →
+            </button>
+          </div>
+        </article>
+
+        <div class="stat-grid">
+          <article class="card stat-card interactive">
+            <div class="stat-label">Chapters</div>
+            <div class="stat-value">0</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Dates learned</div>
+            <div class="stat-value">0</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Quiz accuracy</div>
+            <div class="stat-value">—</div>
+          </article>
+
+          <article class="card stat-card interactive">
+            <div class="stat-label">Revision streak</div>
+            <div class="stat-value">0</div>
+          </article>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Quick Access</div>
+          <h2>Study tools</h2>
+        </div>
+      </div>
+
+      <div class="grid tools-grid">
+
+        <a class="card subject-card interactive" href="#dates">
+          <div>
+            <div class="subject-icon">◷</div>
+            <h3>History Dates</h3>
+            <p>Quickly revise important events and dates.</p>
+          </div>
+          <span class="card-link">Open →</span>
+        </a>
+
+        <a class="card subject-card interactive" href="#quiz">
+          <div>
+            <div class="subject-icon">✓</div>
+            <h3>Quiz</h3>
+            <p>Test your understanding with focused practice.</p>
+          </div>
+          <span class="card-link">Start →</span>
+        </a>
+
+        <a class="card subject-card interactive" href="#revision">
+          <div>
+            <div class="subject-icon">▣</div>
+            <h3>Revision</h3>
+            <p>Use flashcards for fast active recall.</p>
+          </div>
+          <span class="card-link">Revise →</span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Subjects</div>
+          <h2>Choose your subject</h2>
+        </div>
+      </div>
+
+      <div class="grid subjects-grid">
+        ${subjectCards()}
+      </div>
+    </section>
+  `;
+}
+
+function dates(){
+  renderNav("dates");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">History</div>
+      <h1>Important Dates</h1>
+      <p>
+        Search, filter and revise historical events through a clean timeline.
+      </p>
+    </section>
+
+    <div class="status-row" style="margin-bottom:18px">
+      <button class="status-pill active interactive">All Chapters</button>
+      <button class="status-pill interactive">Important</button>
+      <button class="status-pill interactive">Revision</button>
+    </div>
+
+    <section class="empty-state">
+      <h2>Timeline ready</h2>
+      <p class="muted" style="margin-top:8px">
+        Verified History dates will be added during the material phase.
+      </p>
+    </section>
+  `;
+}
+
+function quiz(){
+  renderNav("quiz");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">Practice</div>
+      <h1>Quiz</h1>
+      <p>Choose how you want to test yourself.</p>
+    </section>
+
+    <div class="grid">
+
+      <article class="card subject-card interactive">
+        <div>
+          <div class="subject-icon">⚡</div>
+          <h3>Quick Quiz</h3>
+          <p>Short mixed practice for fast revision.</p>
+        </div>
+        <button class="btn btn-primary interactive">Start Quiz →</button>
+      </article>
+
+      <article class="card subject-card interactive">
+        <div>
+          <div class="subject-icon">▣</div>
+          <h3>Chapter Quiz</h3>
+          <p>Focused practice from one chapter.</p>
+        </div>
+        <button class="btn btn-primary interactive">Choose Chapter →</button>
+      </article>
+
+    </div>
+  `;
+}
+
+function revision(){
+  renderNav("revision");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">Active Recall</div>
+      <h1>Revision</h1>
+      <p>Flashcards designed for quick, tactile revision.</p>
+    </section>
+
+    <section class="flashcard">
+      <div class="flashcard-inner card">
+        <div>
+          <div class="eyebrow">Flashcards</div>
+          <h2 style="margin-top:8px">
+            Your revision deck will appear here.
+          </h2>
+          <p class="muted" style="margin-top:8px">
+            Tap to flip • Mark for revision • Move forward
+          </p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function progress(){
+  renderNav("progress");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">Your Progress</div>
+      <h1>Keep moving.</h1>
+      <p>A simple view of what you have learned and what needs revision.</p>
+    </section>
+
+    <div class="grid stat-grid">
+
+      <article class="card stat-card interactive">
+        <div class="stat-label">Overall progress</div>
+        <div class="stat-value">0%</div>
+        <div class="progress-track">
+          <div class="progress-fill" style="--progress:0%"></div>
+        </div>
+      </article>
+
+      <article class="card stat-card interactive">
+        <div class="stat-label">Quiz accuracy</div>
+        <div class="stat-value">—</div>
+      </article>
+
+      <article class="card stat-card interactive">
+        <div class="stat-label">Dates revised</div>
+        <div class="stat-value">0</div>
+      </article>
+
+    </div>
+
+    <section class="section">
+      <div class="card">
+        <div class="eyebrow">Study Activity</div>
+        <h2 style="margin-top:5px">No activity yet</h2>
+        <p class="muted" style="margin-top:7px">
+          Your study timeline will appear here as you learn.
+        </p>
+      </div>
+    </section>
+  `;
+}
+
+function subjects(){
+  renderNav("home");
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">Subjects</div>
+      <h1>Choose a subject.</h1>
+      <p>
+        Every subject will have its own independently maintained content system.
+      </p>
+    </section>
+
+    <section class="grid subjects-grid">
+      ${subjectCards()}
+    </section>
+  `;
+}
+
+function subject(id){
+  renderNav("home");
+
+  const item=SUBJECTS.find(x=>x.id===id);
+
+  app.innerHTML=`
+    <section class="hero">
+      <div class="eyebrow">${item?.name||"Subject"}</div>
+
+      <h1>${item?.name||"Subject"}</h1>
+
+      <p>
+        Chapter-wise notes, questions, revision and tests will appear here.
+      </p>
+    </section>
+
+    <section class="empty-state">
+      <h2>Content system ready</h2>
+
+      <p class="muted" style="margin-top:8px">
+        Verified UBSE study material will be connected to this subject module.
+      </p>
+    </section>
+  `;
+}
+
+function route(){
+  const path=location.hash.replace(/^#/,"")||"home";
+
+  if(path==="home")return home();
+  if(path==="dates")return dates();
+  if(path==="quiz")return quiz();
+  if(path==="revision")return revision();
+  if(path==="progress")return progress();
+  if(path==="subjects")return subjects();
+
+  if(path.startsWith("subject/")){
+    return subject(path.split("/")[1]);
+  }
+
+  home();
+}
+
+/* ------------------------------------------------------------
+   Interaction handling
+------------------------------------------------------------ */
+
+document.addEventListener("click",event=>{
+
+  const target=event.target.closest(
+    "button,a,.interactive"
+  );
+
+  if(target){
+    target.classList.add("is-pressed");
+
+    window.setTimeout(()=>{
+      target.classList.remove("is-pressed");
+    },1000);
+  }
+
+  const action=event.target.closest("[data-action]")?.dataset.action;
+  const nav=event.target.closest("[data-nav]")?.dataset.nav;
+
+  if(action==="theme"){
+    toggleTheme();
+    renderHeader();
+    return;
+  }
+
+  if(action==="home"){
+    location.hash="home";
+    return;
+  }
+
+  if(action==="subjects"){
+    location.hash="subjects";
+    return;
+  }
+
+  if(nav){
+    location.hash=nav;
+  }
+});
+
+applyAccent();
+
+document.documentElement.classList.toggle(
+  "light",
+  getTheme()==="light"
+);
+
+renderHeader();
+route();
+
+window.addEventListener("hashchange",route);
+
+
+==================== js\ui\header.js ====================
+
+import {toggleTheme,getTheme,getAccent,setAccent} from "../core/theme.js";
+
+export function renderHeader(){
+  const header=document.querySelector("#app-header");
+
+  header.className="app-header";
+
+  header.innerHTML=`
+    <div class="header-inner">
+      <button
+        class="brand"
+        data-action="home"
+        aria-label="Go to Home"
+      >
+        <span class="brand-mark">10</span>
+        <span>Class 10 Notes</span>
+      </button>
+
+      <div class="header-actions">
+        <label
+          class="icon-btn interactive"
+          title="Settings"
+          aria-label="Settings"
+          style="cursor:pointer"
+        >
+          <input
+            id="accent-picker"
+            type="color"
+            value="${getAccent()}"
+            aria-label="Choose accent color"
+            style="
+              position:absolute;
+              opacity:0;
+              width:1px;
+              height:1px;
+              pointer-events:none;
+            "
+          >
+          <span aria-hidden="true" style="position:relative">
+            ⚙
+            <i
+              style="
+                position:absolute;
+                right:-2px;
+                bottom:-2px;
+                width:8px;
+                height:8px;
+                border-radius:50%;
+                background:var(--accent-color);
+                border:1px solid var(--border-strong);
+              "
+            ></i>
+          </span>
+        </label>
+
+        <button
+          class="icon-btn interactive"
+          data-action="theme"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >
+          ${getTheme()==="dark"?"☼":"☾"}
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.querySelector("#accent-picker")
+    ?.addEventListener("input",event=>{
+      setAccent(event.target.value);
+    });
+
+  document.querySelector("#accent-picker")
+    ?.parentElement
+    ?.addEventListener("click",()=>{
+      document.querySelector("#accent-picker")?.click();
+    });
+}
+
+
+==================== js\ui\navigation.js ====================
+
+export function renderNav(current="home"){
+  const nav=document.querySelector("#app-nav");
+
+  nav.className="bottom-nav";
+
+  const items=[
+    ["home","⌂","Home"],
+    ["dates","◷","Dates"],
+    ["quiz","✓","Quiz"],
+    ["revision","▣","Revision"],
+    ["progress","↗","Progress"]
+  ];
+
+  nav.innerHTML=items.map(([id,icon,label])=>`
+    <button
+      class="${current===id?"active":""}"
+      data-nav="${id}"
+      aria-label="${label}"
+      aria-current="${current===id?"page":"false"}"
+    >
+      <span aria-hidden="true">${icon}</span>
+      <br>
+      <small>${label}</small>
+    </button>
+  `).join("");
+}
+
+
+==================== js\core\theme.js ====================
+
+const ACCENT_KEY="class10notes-accent";
+const THEME_KEY="class10notes-theme";
+
+const DEFAULT_ACCENT="#22D3EE";
+
+function hexToRgb(hex){
+  const value=hex.replace("#","");
+  const normalized=value.length===3
+    ? value.split("").map(x=>x+x).join("")
+    : value;
+
+  const number=parseInt(normalized,16);
+
+  return {
+    r:(number>>16)&255,
+    g:(number>>8)&255,
+    b:number&255
+  };
+}
+
+export function setAccent(color){
+  if(!/^#[0-9A-Fa-f]{6}$/.test(color))return;
+
+  const {r,g,b}=hexToRgb(color);
+  const root=document.documentElement;
+
+  root.style.setProperty("--accent-color",color);
+  root.style.setProperty("--accent-rgb",`${r},${g},${b}`);
+  root.style.setProperty("--accent-soft",`rgba(${r},${g},${b},.10)`);
+  root.style.setProperty("--accent-border",`rgba(${r},${g},${b},.25)`);
+  root.style.setProperty("--accent-glow",`rgba(${r},${g},${b},.13)`);
+  root.style.setProperty("--accent-glow-strong",`rgba(${r},${g},${b},.20)`);
+
+  localStorage.setItem(ACCENT_KEY,color);
+}
+
+export function getAccent(){
+  return localStorage.getItem(ACCENT_KEY)||DEFAULT_ACCENT;
+}
+
+export function applyAccent(){
+  setAccent(getAccent());
+}
+
+export function setTheme(theme){
+  document.documentElement.classList.toggle("light",theme==="light");
+  localStorage.setItem(THEME_KEY,theme);
+}
+
+export function getTheme(){
+  return localStorage.getItem(THEME_KEY)||"dark";
+}
+
+export function toggleTheme(){
+  setTheme(getTheme()==="dark"?"light":"dark");
+}
+
+
+==================== js\core\state.js ====================
+
+export const state={
+  view:"home",
+  subject:null,
+  chapter:null,
+  query:"",
+  theme:localStorage.getItem("class10notes-theme")||"dark"
+};
+
+
+==================== IMAGE REFERENCES ====================
+
+css\components.css:1: /* Component layer — glass UI, aligned with global.css tokens */
+css\components.css:8: border-bottom:1px solid var(--border);
+css\components.css:9: background:var(--header-glass);
+css\components.css:10: backdrop-filter:blur(var(--glass-blur));
+css\components.css:11: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:38: background:linear-gradient(145deg,rgba(var(--accent-rgb),.18),rgba(var(--accent-rgb),.06));
+css\components.css:47: .icon-btn,.nav-btn{
+css\components.css:52: background:var(--surface-soft);
+css\components.css:55: backdrop-filter:blur(var(--glass-blur));
+css\components.css:56: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:58: background var(--transition),
+css\components.css:63: .icon-btn:hover,.nav-btn:hover{
+css\components.css:64: background:var(--surface-hover);
+css\components.css:68: .hero{
+css\components.css:80: .hero h1{
+css\components.css:87: .hero p{
+css\components.css:99: background:var(--surface);
+css\components.css:103: backdrop-filter:blur(var(--glass-blur));
+css\components.css:104: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:111: background:transparent;
+css\components.css:123: margin-bottom:14px;
+css\components.css:136: background:var(--surface);
+css\components.css:140: backdrop-filter:blur(var(--glass-blur));
+css\components.css:141: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:175: background:var(--surface);
+css\components.css:176: backdrop-filter:blur(var(--glass-blur));
+css\components.css:177: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:180: .bottom-nav{
+css\components.css:184: bottom:calc(14px + env(safe-area-inset-bottom,0px));
+css\components.css:193: background:var(--nav-glass);
+css\components.css:194: backdrop-filter:blur(var(--glass-blur));
+css\components.css:195: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:199: .bottom-nav button{
+css\components.css:203: background:transparent;
+css\components.css:207: .bottom-nav button.active{
+css\components.css:208: background:var(--accent-soft);
+css\components.css:217: bottom:84px;
+css\components.css:222: background:var(--nav-glass);
+css\components.css:225: backdrop-filter:blur(var(--glass-blur));
+css\components.css:226: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\components.css:238: background:var(--surface-soft);
+css\components.css:246: background:var(--accent-soft);
+css\global.css:45: Original background photo (asset is never altered;
+css\global.css:48: --background-image:url("../assets/background.png");
+css\global.css:49: --background-tint:5,8,14;
+css\global.css:50: --background-overlay-opacity:.55;
+css\global.css:52: /* Glassmorphism system */
+css\global.css:53: --glass-blur:20px;
+css\global.css:54: --header-glass:rgba(9,12,20,.62);
+css\global.css:55: --nav-glass:rgba(10,13,22,.72);
+css\global.css:79: --background-overlay-opacity:.35;
+css\global.css:80: --header-glass:rgba(255,255,255,.72);
+css\global.css:81: --nav-glass:rgba(255,255,255,.80);
+css\global.css:100: background:
+css\global.css:123: background-color .25s ease,
+css\global.css:160: background:rgba(var(--accent-rgb),.24);
+css\global.css:169: /* Original background photo + variable-driven dark overlay */
+css\global.css:180: background:var(--background-image) center/cover no-repeat;
+css\global.css:185: background:rgba(var(--background-tint),var(--background-overlay-opacity));
+css\global.css:203: background-color var(--transition),
+css\global.css:216: background:
+css\global.css:232: background:var(--surface-hover);
+css\global.css:268: border-bottom:1px solid var(--border);
+css\global.css:270: background:var(--header-glass);
+css\global.css:272: backdrop-filter:blur(var(--glass-blur));
+css\global.css:273: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:293: background:transparent;
+css\global.css:310: background:
+css\global.css:338: background:var(--surface);
+css\global.css:344: Hero
+css\global.css:347: .hero{
+css\global.css:360: .hero h1{
+css\global.css:371: .hero p{
+css\global.css:393: background:var(--surface);
+css\global.css:396: backdrop-filter:blur(var(--glass-blur));
+css\global.css:397: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:404: background var(--transition);
+css\global.css:423: background:transparent;
+css\global.css:444: margin-bottom:15px;
+css\global.css:468: background:
+css\global.css:482: backdrop-filter:blur(var(--glass-blur));
+css\global.css:483: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:534: .continue-card{
+css\global.css:549: background:rgba(255,255,255,.06);
+css\global.css:559: background:var(--accent-color);
+css\global.css:567: .stat-grid{
+css\global.css:606: background:var(--surface);
+css\global.css:615: background:var(--accent-color);
+css\global.css:625: background:
+css\global.css:648: background:var(--surface-soft);
+css\global.css:659: background:var(--accent-soft);
+css\global.css:676: bottom:5px;
+css\global.css:681: background:var(--border-strong);
+css\global.css:687: margin-bottom:15px;
+css\global.css:703: background:var(--accent-color);
+css\global.css:727: backdrop-filter:blur(var(--glass-blur));
+css\global.css:728: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:737: background:var(--surface);
+css\global.css:755: backdrop-filter:blur(var(--glass-blur));
+css\global.css:756: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:769: background:var(--surface);
+css\global.css:775: background var(--transition),
+css\global.css:783: background:var(--surface-hover);
+css\global.css:791: background:var(--accent-soft);
+css\global.css:797: background:rgba(67,211,154,.08);
+css\global.css:802: background:rgba(255,107,122,.08);
+css\global.css:810: backdrop-filter:blur(var(--glass-blur));
+css\global.css:811: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:816: background:var(--surface);
+css\global.css:826: bottom:84px;
+css\global.css:834: background:var(--nav-glass);
+css\global.css:835: backdrop-filter:blur(var(--glass-blur));
+css\global.css:836: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:858: Bottom navigation
+css\global.css:861: .bottom-nav{
+css\global.css:866: bottom:calc(14px + env(safe-area-inset-bottom,0px));
+css\global.css:877: background:var(--nav-glass);
+css\global.css:885: backdrop-filter:blur(var(--glass-blur));
+css\global.css:886: -webkit-backdrop-filter:blur(var(--glass-blur));
+css\global.css:889: .bottom-nav button{
+css\global.css:897: background:transparent;
+css\global.css:903: background var(--transition),
+css\global.css:907: .bottom-nav button:hover{
+css\global.css:909: background:var(--surface-soft);
+css\global.css:912: .bottom-nav button.active{
+css\global.css:914: background:var(--accent-soft);
+css\global.css:920: .bottom-nav button.active::after{
+css\global.css:930: background:
+css\responsive.css:24: padding-bottom:124px;
+css\responsive.css:32: .hero{
+css\responsive.css:36: .hero h1{
+css\responsive.css:40: .hero p{
+css\responsive.css:58: .subjects-grid{
+css\responsive.css:63: .tools-grid{
+css\responsive.css:68: .tools-grid .subject-card{
+css\responsive.css:75: .tools-grid .subject-card p{
+css\responsive.css:79: .tools-grid .card-link{
+css\responsive.css:94: .stat-grid{
+css\responsive.css:98: .continue-card{
+css\responsive.css:107: .bottom-nav{
+css\responsive.css:108: bottom:calc(9px + env(safe-area-inset-bottom,0px));
+css\responsive.css:114: .bottom-nav button{
+css\responsive.css:122: .bottom-nav button{
+css\responsive.css:130: .hero h1{
+js\app.js:3: import {renderNav} from "./ui/navigation.js";
+js\app.js:34: renderNav("home");
+js\app.js:37: <section class="hero">
+js\app.js:67: <div class="eyebrow">Continue</div>
+js\app.js:78: <article class="card continue-card interactive">
+js\app.js:80: <div class="eyebrow">Continue Revision</div>
+js\app.js:114: <div class="stat-grid">
+js\app.js:147: <div class="grid tools-grid">
+js\app.js:187: <div class="grid subjects-grid">
+js\app.js:195: renderNav("dates");
+js\app.js:198: <section class="hero">
+js\app.js:206: <div class="status-row" style="margin-bottom:18px">
+js\app.js:222: renderNav("quiz");
+js\app.js:225: <section class="hero">
+js\app.js:256: renderNav("revision");
+js\app.js:259: <section class="hero">
+js\app.js:282: renderNav("progress");
+js\app.js:285: <section class="hero">
+js\app.js:291: <div class="grid stat-grid">
+js\app.js:326: renderNav("home");
+js\app.js:329: <section class="hero">
+js\app.js:337: <section class="grid subjects-grid">
+js\app.js:344: renderNav("home");
+js\app.js:349: <section class="hero">
+js\app.js:405: const nav=event.target.closest("[data-nav]")?.dataset.nav;
+js\app.js:423: if(nav){
+js\app.js:424: location.hash=nav;
+js\ui\header.js:45: bottom:-2px;
+js\ui\header.js:49: background:var(--accent-color);
+js\ui\navigation.js:1: export function renderNav(current="home"){
+js\ui\navigation.js:2: const nav=document.querySelector("#app-nav");
+js\ui\navigation.js:4: nav.className="bottom-nav";
+js\ui\navigation.js:14: nav.innerHTML=items.map(([id,icon,label])=>`
+js\ui\navigation.js:17: data-nav="${id}"
+.kilo\worktrees\chiseled-limpet\index.html:11: body{background:var(--bg);color:var(--text);min-height:100vh;transition:.3s;padding-bottom:80px;}
+.kilo\worktrees\chiseled-limpet\index.html:12: header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;gap:12px;z-index:100;}
+.kilo\worktrees\chiseled-limpet\index.html:13: header h1{font-size:1.1rem;flex:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.kilo\worktrees\chiseled-limpet\index.html:14: .icon-btn{background:var(--card);border:1px solid var(--border);color:var(--text);width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:1.1rem;}
+.kilo\worktrees\chiseled-limpet\index.html:16: .search-wrap input{width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:.95rem;outline:none;}
+.kilo\worktrees\chiseled-limpet\index.html:18: .subj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 16px;cursor:pointer;transition:.25s;animation:fadeUp .4s backwards;}
+.kilo\worktrees\chiseled-limpet\index.html:20: .subj-card .emoji{font-size:2rem;display:block;margin-bottom:8px;}
+.kilo\worktrees\chiseled-limpet\index.html:21: .subj-card h3{font-size:1rem;margin-bottom:4px;}
+.kilo\worktrees\chiseled-limpet\index.html:26: .back-btn{background:none;border:none;color:var(--accent2);cursor:pointer;font-size:.95rem;padding:14px 0;font-weight:600;}
+.kilo\worktrees\chiseled-limpet\index.html:27: .chapter{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:.2s;display:flex;justify-content:space-between;align-items:center;}
+.kilo\worktrees\chiseled-limpet\index.html:29: .content-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px;line-height:1.7;}
+.kilo\worktrees\chiseled-limpet\index.html:31: .content-box p,.content-box li{font-size:.92rem;margin-bottom:8px;}
+.kilo\worktrees\chiseled-limpet\index.html:32: .content-box ul{padding-left:20px;margin-bottom:10px;}
+.kilo\worktrees\chiseled-limpet\index.html:33: .tabs{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px;}
+.kilo\worktrees\chiseled-limpet\index.html:34: .tab{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.82rem;white-space:nowrap;}
+.kilo\worktrees\chiseled-limpet\index.html:35: .tab.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.kilo\worktrees\chiseled-limpet\index.html:36: .mcq{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px;}
+.kilo\worktrees\chiseled-limpet\index.html:37: .opt{padding:9px 12px;border-radius:8px;border:1px solid var(--border);margin-bottom:6px;cursor:pointer;font-size:.85rem;}
+.kilo\worktrees\chiseled-limpet\index.html:38: .opt.correct{background:#00b89433;border-color:#00b894;}
+.kilo\worktrees\chiseled-limpet\index.html:39: .opt.wrong{background:#ff767533;border-color:#ff7675;}
+.kilo\worktrees\chiseled-limpet\index.html:46: <div id="subjectView" class="view"><button class="back-btn" onclick="goHome()">← Wapas</button><h2 id="subjTitle" style="margin-bottom:14px;"></h2><div id="chapterList"></div></div>
+.kilo\worktrees\chiseled-limpet\index.html:49: <h2 id="chapterTitle" style="margin-bottom:14px;"></h2>
+index.html:17: <nav id="app-nav" aria-label="Primary navigation"></nav>

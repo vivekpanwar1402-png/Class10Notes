@@ -45,7 +45,7 @@
      Original background photo (asset is never altered;
      darkness is controlled only by the overlay variable)
   --------------------------------------------------------- */
-  --background-image:url("../assets/background.jpg)";
+  --background-image:url("../assets/background.png");
   --background-tint:5,8,14;
   --background-overlay-opacity:.55;
 
@@ -951,4 +951,3 @@ img{
     transition-duration:.01ms!important;
   }
 }
-

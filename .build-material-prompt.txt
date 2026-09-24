@@ -1,0 +1,351 @@
+﻿You are the LEAD CONTENT + IMPLEMENTATION ENGINE for the existing Class10Notes repository.
+
+OBJECTIVE:
+Actually populate the website with high-quality Class 10 Uttarakhand Board (UBSE) 2026-27 study material.
+
+TARGET:
+- Class 10
+- UBSE / Uttarakhand Board
+- Academic session 2026-27
+- Hindi-medium friendly
+- SST first, then Hindi
+- Existing Canva UI must remain unchanged except where real material integration requires it.
+
+============================================================
+PHASE 1 — INSPECT FIRST
+============================================================
+
+Before changing anything:
+
+1. Inspect the COMPLETE repository tree.
+2. Detect the actual project/build system.
+3. Do NOT assume package.json exists.
+4. Do NOT assume npm exists.
+5. Identify:
+   - material directories
+   - subject modules
+   - chapter files
+   - question files
+   - flashcard files
+   - material loader
+   - search system
+   - quiz engine
+   - revision system
+   - progress system
+   - validation/test scripts
+   - entry points
+6. Read the existing material architecture before writing content.
+7. Read the existing UI integration code.
+
+IMPORTANT:
+The repository currently may NOT use package.json.
+Never fail merely because package.json is absent.
+
+============================================================
+PHASE 2 — EXISTING MATERIAL
+============================================================
+
+Inspect all existing study material.
+
+Keep useful architecture.
+
+Do NOT blindly preserve old placeholder/sample content.
+
+Do NOT destroy working UI.
+
+If existing material is incomplete, replace/extend ONLY the material layer.
+
+Keep subjects and chapters modular.
+
+Each subject/chapter must have independent files wherever the existing architecture supports this.
+
+============================================================
+PHASE 3 — SYLLABUS RESEARCH
+============================================================
+
+Research and verify the CURRENT UBSE Class 10 2026-27 syllabus before generating material.
+
+Priority:
+
+1. Official UBSE sources
+2. Official UBSE syllabus/question-bank/sample-paper material
+3. Current prescribed NCERT material
+4. Reputable educational references only for cross-checking
+
+Do NOT fabricate:
+
+- chapter names
+- chapter inclusion
+- marks
+- question-paper pattern
+- PYQs
+- board years
+- official status
+
+If a claim cannot be verified, do not label it official.
+
+============================================================
+PHASE 4 — SST MATERIAL
+============================================================
+
+Build the complete verified Class 10 UBSE SST structure:
+
+HISTORY
+GEOGRAPHY
+CIVICS / DEMOCRATIC POLITICS
+ECONOMICS
+
+For every verified chapter create rich, original student-friendly Hindi material.
+
+Each chapter should contain where applicable:
+
+- overview
+- learning objectives
+- topic breakdown
+- easy explanations
+- important concepts
+- definitions
+- important facts
+- examples
+- causes
+- effects
+- comparisons
+- people
+- places
+- events
+- important dates
+- exam-focused points
+- common confusions
+- quick revision
+- final revision summary
+
+Use simple natural Hindi.
+Do not copy textbook passages.
+Rewrite explanations originally.
+
+============================================================
+PHASE 5 — QUESTIONS
+============================================================
+
+For EVERY chapter generate a substantial, useful question bank.
+
+Include where academically applicable:
+
+- MCQs
+- very-short-answer
+- short-answer
+- long-answer
+- competency/application
+- case/source-based
+- assertion-reason
+- chronology/date-based
+- map/location-based
+- interpretation/data-based
+- board-aligned practice
+
+Quality > artificial quantity.
+
+Every question must contain the fields required by the EXISTING repository schema.
+
+Never invent a PYQ.
+
+Only use PYQ=true when year/source/paper can actually be verified.
+
+All unverified practice questions must remain clearly labelled as practice.
+
+============================================================
+PHASE 6 — FLASHCARDS + REVISION
+============================================================
+
+Generate useful flashcards for:
+
+- definitions
+- dates
+- people
+- events
+- causes
+- effects
+- concepts
+- comparisons
+- important facts
+
+Also create chapter-level quick-revision material.
+
+============================================================
+PHASE 7 — HINDI
+============================================================
+
+After SST, inspect and verify the actual UBSE 2026-27 Hindi syllabus.
+
+Do NOT assume the textbook/chapter list.
+
+Build the verified Hindi structure.
+
+Where applicable include:
+
+- गद्य
+- पद्य
+- पाठ सार
+- भावार्थ
+- प्रमुख विचार
+- शब्दार्थ
+- लेखक/कवि information
+- व्याख्या
+- पाठ आधारित questions
+- short answers
+- long answers
+- grammar
+- writing
+- unseen passage practice
+- board-aligned practice
+- revision material
+
+All student-facing explanations should be original and concise.
+
+============================================================
+PHASE 8 — INTEGRATION
+============================================================
+
+Connect the generated material to the EXISTING:
+
+- material loader
+- search
+- filters
+- quiz engine
+- revision
+- flashcards
+- progress
+
+Do NOT redesign the UI.
+
+Do NOT replace the Canva design system.
+
+Do NOT change the accent architecture.
+
+Do NOT break navigation.
+
+Only modify integration code when necessary to make the real material work.
+
+============================================================
+PHASE 9 — VALIDATION
+============================================================
+
+Use the repository's ACTUAL available validation/test mechanism.
+
+If npm/package.json exists, use it.
+
+If it does not exist, detect and use the repository's real validation mechanism.
+
+Do not invent a test command.
+
+Validate:
+
+- all subject modules load
+- chapters load
+- notes contain real content
+- questions contain real content
+- MCQs have valid options and answers
+- flashcards have front/back
+- IDs are unique
+- no empty student-facing text
+- no placeholder content
+- no lorem ipsum
+- search index works
+- quiz data loads
+- progress IDs resolve
+- no broken imports/references
+- existing UI remains functional
+
+If a validation fails:
+FIX THE ACTUAL PROBLEM.
+Do not simply print PASS.
+
+============================================================
+PHASE 10 — GIT
+============================================================
+
+Do NOT touch unrelated files.
+
+After successful implementation and validation:
+
+git add -A
+git commit -m "feat: add verified UBSE SST and Hindi study material"
+git push origin main
+
+If there is nothing to commit, explain why instead of creating an empty commit.
+
+============================================================
+FINAL REPORT
+============================================================
+
+Print REAL measured results from the generated files.
+
+Include:
+
+============================================================
+CLASS10NOTES — MATERIAL BUILD COMPLETE
+============================================================
+
+History:
+Chapters:
+Topics:
+Notes:
+Questions:
+MCQs:
+Flashcards:
+
+Geography:
+Chapters:
+Topics:
+Questions:
+MCQs:
+Flashcards:
+
+Civics:
+Chapters:
+Topics:
+Questions:
+MCQs:
+Flashcards:
+
+Economics:
+Chapters:
+Topics:
+Questions:
+MCQs:
+Flashcards:
+
+Hindi:
+Verified sections:
+Chapters:
+Questions:
+Grammar items:
+Writing items:
+Flashcards:
+
+PYQs VERIFIED:
+Board-aligned practice:
+
+Validation:
+Tests:
+Integration:
+Broken references:
+Duplicate IDs:
+Placeholders:
+
+Git:
+Commit:
+Push:
+
+Website:
+https://vivekpanwar1402-png.github.io/Class10Notes/
+
+STATUS:
+ACTUAL MATERIAL BUILD COMPLETE
+
+CRITICAL:
+Never claim completion based only on creating folders, schemas, templates, or a directive file.
+
+Completion means REAL student-facing material exists in the repository and is connected to the existing website.
+
+Never invent counts.
