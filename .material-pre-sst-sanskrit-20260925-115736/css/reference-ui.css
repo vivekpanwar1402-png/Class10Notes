@@ -1319,31 +1319,3 @@ body{
     font-size:.68rem!important;
   }
 }
-
-/* NotesByME content language control */
-.language-control{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.language-control button{min-width:72px;max-width:100%;box-sizing:border-box;white-space:nowrap}
-.material-content{min-width:0;overflow-wrap:anywhere}
-/* ============================================================
-   MATERIAL SYSTEM — LANGUAGE + CONTENT CARDS
-   ============================================================ */
-.material-section{margin-top:34px!important}
-.material-section .section-heading{align-items:flex-end;gap:18px}
-.material-section h2{margin:5px 0 0!important}
-.language-control{justify-content:flex-end}
-.language-control .btn{min-height:42px!important;padding:9px 13px!important;border-radius:13px!important}
-.material-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.material-content{padding:21px!important}
-.material-content h3{margin:7px 0 14px!important}
-.material-topic{padding:12px 0;border-top:1px solid rgba(190,220,240,.10)}
-.material-topic strong{display:block;color:#f4f9ff}
-.material-topic p{margin:6px 0 0;color:#aec2d5;line-height:1.55}
-.material-topic-list{display:flex;flex-wrap:wrap;gap:8px}
-.material-topic-list span{padding:8px 10px;border:1px solid rgba(190,220,240,.12);border-radius:10px;color:#b9cde0}
-@media(max-width:600px){
-  .material-section .section-heading{align-items:flex-start;flex-direction:column}
-  .language-control{width:100%;justify-content:flex-start}
-  .language-control .btn{flex:1;min-width:0}
-  .material-grid{grid-template-columns:1fr;gap:10px}
-  .material-content{padding:17px!important}
-}

@@ -30,81 +30,6 @@ function subjectCards(list=SUBJECTS){
   `).join("");
 }
 
-function renderMaterialLanguageControl(){
-  return `
-    <div class="language-control" role="group" aria-label="Content language">
-      <button class="btn interactive ${NBM_LANGUAGE.current==="en"?"btn-primary":""}" data-lang="en">English</button>
-      <button class="btn interactive ${NBM_LANGUAGE.current==="hi"?"btn-primary":""}" data-lang="hi">हिन्दी</button>
-      <button class="btn interactive ${NBM_LANGUAGE.current==="hinglish"?"btn-primary":""}" data-lang="hinglish">Hinglish</button>
-    </div>
-  `;
-}
-
-function materialText(value){
-  if(!value) return "";
-  if(typeof value==="string") return value;
-  return value[NBM_LANGUAGE.current] || value.en || value.hi || value.hinglish || "";
-}
-
-function renderMaterialPreview(){
-  const sst=NBM_MATERIAL?.sst;
-  const sanskrit=NBM_MATERIAL?.sanskrit;
-  if(!sst && !sanskrit) return;
-
-  const chapters=(sst?.chapters||[]).slice(0,5);
-  const sections=(sanskrit?.sections||[]);
-
-  return `
-    <section class="section material-section">
-      <div class="section-heading">
-        <div>
-          <div class="eyebrow">Study Material</div>
-          <h2>Class 10 Materials</h2>
-        </div>
-        ${renderMaterialLanguageControl()}
-      </div>
-
-      <div class="material-grid">
-        ${chapters.map(ch=>`
-          <article class="card material-content interactive">
-            <div class="eyebrow">SST · ${ch.subject}</div>
-            <h3>${materialText(ch.title)}</h3>
-            ${(ch.topics||[]).map(t=>`
-              <div class="material-topic">
-                <strong>${materialText(t.title)}</strong>
-                <p>${materialText(t.notes)}</p>
-              </div>
-            `).join("")}
-          </article>
-        `).join("")}
-
-        ${sections.map(sec=>`
-          <article class="card material-content interactive">
-            <div class="eyebrow">Sanskrit</div>
-            <h3>${materialText(sec.title)}</h3>
-            <div class="material-topic-list">
-              ${(sec.topics||[]).map(t=>`<span>${t}</span>`).join("")}
-            </div>
-          </article>
-        `).join("")}
-      </div>
-    </section>
-  `;
-}
-
-window.addEventListener("nbm:language-change",()=>{
-  const host=document.querySelector(".material-section");
-  if(host){
-    const wrapper=document.createElement("div");
-    wrapper.innerHTML=renderMaterialPreview();
-    host.replaceWith(wrapper.firstElementChild);
-  }
-});
-
-document.addEventListener("click",e=>{
-  const button=e.target.closest("[data-lang]");
-  if(button) NBM_LANGUAGE.set(button.dataset.lang);
-});
 function home(){
   renderNav("home");
 
@@ -154,7 +79,7 @@ function home(){
       </div>
       <div class="subjects-grid">${subjectCards()}</div>
     </section>
-      ${renderMaterialPreview()}`r`n  `;
+  `;
 }
 function dates(){
   renderNav("dates");
@@ -401,7 +326,5 @@ renderHeader();
 route();
 
 window.addEventListener("hashchange",route);
-
-
 
 
