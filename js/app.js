@@ -93,12 +93,7 @@ function renderMaterialPreview(){
 }
 
 window.addEventListener("nbm:language-change",()=>{
-  const host=document.querySelector(".material-section");
-  if(host){
-    const wrapper=document.createElement("div");
-    wrapper.innerHTML=renderMaterialPreview();
-    host.replaceWith(wrapper.firstElementChild);
-  }
+  route();
 });
 
 document.addEventListener("click",e=>{
@@ -306,6 +301,87 @@ function subjects(){
   `;
 }
 
+function materialKeyForSubject(id){
+  const aliases={
+    sst:"sst",
+    socialscience:"sst",
+    "social-science":"sst",
+    science:"science",
+    maths:"maths",
+    mathematics:"maths",
+    english:"english",
+    hindi:"hindi",
+    sanskrit:"sanskrit"
+  };
+  return aliases[String(id||"").toLowerCase()] || String(id||"").toLowerCase();
+}
+
+function renderSubjectMaterial(id){
+  const key=materialKeyForSubject(id);
+  const data=NBM_MATERIAL?.[key];
+
+  if(!data){
+    return `
+      <section class="empty-state">
+        <h2>Material coming soon</h2>
+        <p class="muted" style="margin-top:8px">
+          Verified study material for this subject is being prepared.
+        </p>
+      </section>
+    `;
+  }
+
+  const groups=[
+    ...(data.chapters||[]),
+    ...(data.history||[]),
+    ...(data.geography||[]),
+    ...(data.civics||[]),
+    ...(data.economics||[]),
+    ...(data.sections||[])
+  ];
+
+  return `
+    <section class="section material-section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Study Material</div>
+          <h2>${materialText(data.meta?.name||"Study Material")}</h2>
+        </div>
+        ${renderMaterialLanguageControl()}
+      </div>
+
+      <div class="material-grid">
+        ${groups.map((group,index)=>`
+          <article class="card material-content interactive">
+            <div class="eyebrow">
+              ${data.meta?.short||data.meta?.name||"Material"} · ${String(index+1).padStart(2,"0")}
+            </div>
+
+            <h3>${materialText(group.title)}</h3>
+
+            ${(group.topics||[]).map((topic,topicIndex)=>{
+              const title=typeof topic==="string"
+                ? topic
+                : materialText(topic.title||topic.name||"Topic");
+
+              const notes=typeof topic==="string"
+                ? topic
+                : materialText(topic.notes||topic.description||"");
+
+              return `
+                <div class="material-topic">
+                  <strong>${title}</strong>
+                  ${notes?`<p>${notes}</p>`:""}
+                </div>
+              `;
+            }).join("")}
+          </article>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function subject(id){
   renderNav("home");
 
@@ -318,17 +394,11 @@ function subject(id){
       <h1>${item?.name||"Subject"}</h1>
 
       <p>
-        Chapter-wise notes, questions, revision and tests will appear here.
+        Chapter-wise notes, concepts and revision material.
       </p>
     </section>
 
-    <section class="empty-state">
-      <h2>Content system ready</h2>
-
-      <p class="muted" style="margin-top:8px">
-        Verified UBSE study material will be connected to this subject module.
-      </p>
-    </section>
+    ${renderSubjectMaterial(id)}
   `;
 }
 
@@ -402,6 +472,7 @@ renderHeader();
 route();
 
 window.addEventListener("hashchange",route);
+
 
 
 
