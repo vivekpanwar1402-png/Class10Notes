@@ -1,30 +1,30 @@
 {
-  "subject":"Hindi",
-  "board":"UBSE",
-  "class":10,
-  "session":"2026-27",
-  "chapter":{
-    "id":"hindi-01",
-    "chapterNumber":1,
-    "title":"क्षितिज / पाठ 1",
-    "status":"content-foundation",
-    "language":{
-      "english":"This chapter package will contain original academic explanations and structured revision material.",
-      "hindi":"इस अध्याय के लिए मौलिक, सरल और परीक्षा-केंद्रित अध्ययन सामग्री यहाँ व्यवस्थित की जाएगी।",
-      "hinglish":"Is chapter ko simple Hinglish mein concept-first tareeke se samjhaya jayega."
+  "subject": "Hindi",
+  "board": "UBSE",
+  "class": 10,
+  "session": "2026-27",
+  "chapter": {
+    "id": "hindi-01",
+    "chapterNumber": 1,
+    "title": "क्षितिज / पाठ 1",
+    "status": "content-foundation",
+    "language": {
+      "english": "This chapter package will contain original academic explanations and structured revision material.",
+      "hindi": "इस अध्याय के लिए मौलिक, सरल और परीक्षा-केंद्रित अध्ययन सामग्री यहाँ व्यवस्थित की जाएगी।",
+      "hinglish": "Is chapter ko simple Hinglish mein concept-first tareeke se samjhaya jayega."
     },
-    "learningObjectives":[
+    "learningObjectives": [
       "पाठ की केंद्रीय भावना और विचार को समझना",
       "प्रमुख साहित्यिक तत्वों को पहचानना",
       "पाठ से जुड़े शब्दों और अभिव्यक्तियों को समझना",
       "पाठ-आधारित प्रश्नों के उत्तर संरचित रूप में देना"
     ],
-    "notesTarget":{
-      "minimum":50,
-      "maximum":100,
-      "fillerAllowed":false
+    "notesTarget": {
+      "minimum": 50,
+      "maximum": 100,
+      "fillerAllowed": false
     },
-    "modules":[
+    "modules": [
       "overview",
       "concepts",
       "definitions",
@@ -40,77 +40,115 @@
       "flashcards",
       "expert-modules"
     ],
-    "expertModules":[
+    "expertModules": [
       {
-        "id":"expert-hindi-01-concept",
-        "title":"Concept Clarity Module",
-        "approach":"कठिन साहित्यिक विचारों को छोटे अर्थपूर्ण हिस्सों में समझाना",
-        "notes":[
+        "id": "expert-hindi-01-concept",
+        "title": "Concept Clarity Module",
+        "approach": "कठिन साहित्यिक विचारों को छोटे अर्थपूर्ण हिस्सों में समझाना",
+        "notes": [
           {
-            "id":"exh1-001",
-            "type":"concept",
-            "hindi":"पाठ को समझते समय केवल घटनाओं या पंक्तियों को याद करने के बजाय उनके पीछे छिपे विचार और भाव को पहचानना आवश्यक है।",
-            "hinglish":"Sirf lines yaad karne ke bajay ye samjho ki writer actually kya idea ya feeling convey kar raha hai.",
-            "english":"Focus on the central idea and emotion instead of memorising isolated lines."
+            "id": "exh1-001",
+            "type": "concept",
+            "hindi": "पाठ को समझते समय केवल घटनाओं या पंक्तियों को याद करने के बजाय उनके पीछे छिपे विचार और भाव को पहचानना आवश्यक है।",
+            "hinglish": "Sirf lines yaad karne ke bajay ye samjho ki writer actually kya idea ya feeling convey kar raha hai.",
+            "english": "Focus on the central idea and emotion instead of memorising isolated lines."
           },
           {
-            "id":"exh1-002",
-            "type":"exam-strategy",
-            "hindi":"उत्तर लिखते समय पहले सीधे प्रश्न का उत्तर दें, फिर आवश्यक व्याख्या या उदाहरण जोड़ें।",
-            "hinglish":"Pehle direct answer do, phir usko explain karo; unnecessary story mat banao.",
-            "english":"Answer the question directly first, then support it with relevant explanation."
+            "id": "exh1-002",
+            "type": "exam-strategy",
+            "hindi": "उत्तर लिखते समय पहले सीधे प्रश्न का उत्तर दें, फिर आवश्यक व्याख्या या उदाहरण जोड़ें।",
+            "hinglish": "Pehle direct answer do, phir usko explain karo; unnecessary story mat banao.",
+            "english": "Answer the question directly first, then support it with relevant explanation."
           },
           {
-            "id":"exh1-003",
-            "type":"revision",
-            "hindi":"पुनरावृत्ति के लिए पाठ को चार हिस्सों में बाँटें—मुख्य विचार, प्रमुख बिंदु, शब्दार्थ और प्रश्न।",
-            "hinglish":"Revision ko four blocks mein karo: main idea, key points, meanings aur questions.",
-            "english":"Revise through four blocks: central idea, key points, vocabulary and questions."
+            "id": "exh1-003",
+            "type": "revision",
+            "hindi": "पुनरावृत्ति के लिए पाठ को चार हिस्सों में बाँटें—मुख्य विचार, प्रमुख बिंदु, शब्दार्थ और प्रश्न।",
+            "hinglish": "Revision ko four blocks mein karo: main idea, key points, meanings aur questions.",
+            "english": "Revise through four blocks: central idea, key points, vocabulary and questions."
           }
         ],
-        "sources":[
-          {"sourceType":"official","sourceName":"UBSE","sourceVersion":"2026-27","verified":true},
-          {"sourceType":"reference","sourceName":"NCERT","sourceVersion":"current","verified":true}
+        "sources": [
+          {
+            "sourceType": "official",
+            "sourceName": "UBSE",
+            "sourceVersion": "2026-27",
+            "verified": true
+          },
+          {
+            "sourceType": "reference",
+            "sourceName": "NCERT",
+            "sourceVersion": "current",
+            "verified": true
+          }
         ]
       }
     ],
-    "contentNotes":[
+    "contentNotes": [
       {
-        "id":"hi01-001",
-        "type":"overview",
-        "hindi":"अध्याय को समझने की शुरुआत उसके केंद्रीय विचार, भाव और लेखक के उद्देश्य से की जाएगी।",
-        "hinglish":"Sabse pehle chapter ka central idea, emotion aur writer ka purpose samjho.",
-        "english":"Begin by identifying the chapter's central idea, emotional core and authorial purpose."
+        "id": "hi01-001",
+        "type": "overview",
+        "hindi": "अध्याय को समझने की शुरुआत उसके केंद्रीय विचार, भाव और लेखक के उद्देश्य से की जाएगी।",
+        "hinglish": "Sabse pehle chapter ka central idea, emotion aur writer ka purpose samjho.",
+        "english": "Begin by identifying the chapter's central idea, emotional core and authorial purpose."
       },
       {
-        "id":"hi01-002",
-        "type":"study-method",
-        "hindi":"किसी साहित्यिक पाठ को प्रभावी ढंग से पढ़ने के लिए घटनाओं, पात्रों, विचारों और भाषा के संबंध को देखना चाहिए।",
-        "hinglish":"Literature ko sirf story ki tarah nahi, balki characters, ideas aur language ke connection ke saath padho.",
-        "english":"Study a literary text through the relationship between events, characters, ideas and language."
+        "id": "hi01-002",
+        "type": "study-method",
+        "hindi": "किसी साहित्यिक पाठ को प्रभावी ढंग से पढ़ने के लिए घटनाओं, पात्रों, विचारों और भाषा के संबंध को देखना चाहिए।",
+        "hinglish": "Literature ko sirf story ki tarah nahi, balki characters, ideas aur language ke connection ke saath padho.",
+        "english": "Study a literary text through the relationship between events, characters, ideas and language."
       },
       {
-        "id":"hi01-003",
-        "type":"answer-writing",
-        "hindi":"साहित्यिक प्रश्न के उत्तर में प्रश्न के मुख्य शब्दों को पहचानकर उसी के अनुसार उत्तर को व्यवस्थित करना चाहिए।",
-        "hinglish":"Question ke keywords pakdo aur answer ko unhi points ke around structure karo.",
-        "english":"Identify the key terms in the question and structure the answer around them."
+        "id": "hi01-003",
+        "type": "answer-writing",
+        "hindi": "साहित्यिक प्रश्न के उत्तर में प्रश्न के मुख्य शब्दों को पहचानकर उसी के अनुसार उत्तर को व्यवस्थित करना चाहिए।",
+        "hinglish": "Question ke keywords pakdo aur answer ko unhi points ke around structure karo.",
+        "english": "Identify the key terms in the question and structure the answer around them."
+      },
+      {
+        "id": "hi01-004",
+        "type": "concept",
+        "hindi": "पाठ के केंद्रीय विचार को समझने के लिए उसके विषय, भाव और लेखक के दृष्टिकोण को साथ में देखना चाहिए।",
+        "hinglish": "Central idea samajhne ke liye topic, emotion aur writer ka viewpoint teenon ko saath dekho.",
+        "english": "Understand the central idea by connecting the topic, emotion and authorial viewpoint."
+      },
+      {
+        "id": "hi01-005",
+        "type": "reading-skill",
+        "hindi": "साहित्यिक पाठ पढ़ते समय महत्वपूर्ण शब्दों और विचारों को अलग पहचानना उपयोगी होता है।",
+        "hinglish": "Reading ke time important words aur ideas ko mark karna understanding ko easy banata hai.",
+        "english": "Identifying important words and ideas improves comprehension of a literary text."
+      },
+      {
+        "id": "hi01-006",
+        "type": "answer-writing",
+        "hindi": "उत्तर में पाठ से संबंधित सटीक बिंदुओं को प्राथमिकता दें और अनावश्यक विस्तार से बचें।",
+        "hinglish": "Answer mein relevant points rakho aur unnecessary extra explanation avoid karo.",
+        "english": "Prioritise relevant points and avoid unnecessary elaboration in answers."
+      },
+      {
+        "id": "hi01-007",
+        "type": "revision",
+        "hindi": "अध्याय की पुनरावृत्ति करते समय पहले मुख्य विचार, फिर प्रमुख बिंदु और अंत में प्रश्नों का अभ्यास करें।",
+        "hinglish": "Revision order rakho: main idea, key points, then questions.",
+        "english": "For revision, review the central idea, key points and then practise questions."
       }
     ],
-    "sourceMetadata":[
+    "sourceMetadata": [
       {
-        "sourceType":"official",
-        "sourceName":"UBSE",
-        "sourceVersion":"2026-27",
-        "verified":true,
-        "board":"UBSE"
+        "sourceType": "official",
+        "sourceName": "UBSE",
+        "sourceVersion": "2026-27",
+        "verified": true,
+        "board": "UBSE"
       },
       {
-        "sourceType":"official-reference",
-        "sourceName":"NCERT",
-        "sourceVersion":"current",
-        "verified":true,
-        "board":"BOTH"
+        "sourceType": "official-reference",
+        "sourceName": "NCERT",
+        "sourceVersion": "current",
+        "verified": true,
+        "board": "BOTH"
       }
     ]
   }
