@@ -1,159 +1,159 @@
 {
-  "subject": "Hindi",
-  "board": "UBSE",
-  "class": 10,
-  "session": "2026-27",
-  "chapter": {
-    "id": "hindi-01",
-    "chapterNumber": 1,
-    "title": "क्षितिज / पाठ 1",
-    "status": "content-ready",
-    "language": {
-      "english": "This chapter package will contain original academic explanations and structured revision material.",
-      "hindi": "इस अध्याय के लिए मौलिक, सरल और परीक्षा-केंद्रित अध्ययन सामग्री यहाँ व्यवस्थित की जाएगी।",
-      "hinglish": "Is chapter ko simple Hinglish mein concept-first tareeke se samjhaya jayega."
-    },
-    "learningObjectives": [
-      "पाठ की केंद्रीय भावना और विचार को समझना",
-      "प्रमुख साहित्यिक तत्वों को पहचानना",
-      "पाठ से जुड़े शब्दों और अभिव्यक्तियों को समझना",
-      "पाठ-आधारित प्रश्नों के उत्तर संरचित रूप में देना"
-    ],
-    "notesTarget": {
-      "minimum": 50,
-      "maximum": 100,
-      "fillerAllowed": false
-    },
-    "modules": [
-      "overview",
-      "concepts",
-      "definitions",
-      "keywords",
-      "literary-elements",
-      "important-points",
-      "common-mistakes",
-      "answer-writing",
-      "mcq",
-      "short-answer",
-      "long-answer",
-      "revision",
-      "flashcards",
-      "expert-modules"
-    ],
-    "expertModules": {
-      "enabled": true,
-      "noteTarget": {
-        "minimum": 50,
-        "maximum": 100
-      },
-      "formats": [
-        "concept-breakdown",
-        "easy-explanation",
-        "exam-tip",
-        "memory-trick",
-        "common-confusion",
-        "answer-framework",
-        "revision-tip",
-        "thinking-question"
-      ]
-    },
-    "contentNotes": [
-      {
-        "id": "hi01-001",
-        "type": "overview",
-        "hindi": "अध्याय को समझने की शुरुआत उसके केंद्रीय विचार, भाव और लेखक के उद्देश्य से की जाएगी।",
-        "hinglish": "Sabse pehle chapter ka central idea, emotion aur writer ka purpose samjho.",
-        "english": "Begin by identifying the chapter's central idea, emotional core and authorial purpose."
-      },
-      {
-        "id": "hi01-002",
-        "type": "study-method",
-        "hindi": "किसी साहित्यिक पाठ को प्रभावी ढंग से पढ़ने के लिए घटनाओं, पात्रों, विचारों और भाषा के संबंध को देखना चाहिए।",
-        "hinglish": "Literature ko sirf story ki tarah nahi, balki characters, ideas aur language ke connection ke saath padho.",
-        "english": "Study a literary text through the relationship between events, characters, ideas and language."
-      },
-      {
-        "id": "hi01-003",
-        "type": "answer-writing",
-        "hindi": "साहित्यिक प्रश्न के उत्तर में प्रश्न के मुख्य शब्दों को पहचानकर उसी के अनुसार उत्तर को व्यवस्थित करना चाहिए।",
-        "hinglish": "Question ke keywords pakdo aur answer ko unhi points ke around structure karo.",
-        "english": "Identify the key terms in the question and structure the answer around them."
-      },
-      {
-        "id": "hi01-004",
-        "type": "concept",
-        "hindi": "पाठ के केंद्रीय विचार को समझने के लिए उसके विषय, भाव और लेखक के दृष्टिकोण को साथ में देखना चाहिए।",
-        "hinglish": "Central idea samajhne ke liye topic, emotion aur writer ka viewpoint teenon ko saath dekho.",
-        "english": "Understand the central idea by connecting the topic, emotion and authorial viewpoint."
-      },
-      {
-        "id": "hi01-005",
-        "type": "reading-skill",
-        "hindi": "साहित्यिक पाठ पढ़ते समय महत्वपूर्ण शब्दों और विचारों को अलग पहचानना उपयोगी होता है।",
-        "hinglish": "Reading ke time important words aur ideas ko mark karna understanding ko easy banata hai.",
-        "english": "Identifying important words and ideas improves comprehension of a literary text."
-      },
-      {
-        "id": "hi01-006",
-        "type": "answer-writing",
-        "hindi": "उत्तर में पाठ से संबंधित सटीक बिंदुओं को प्राथमिकता दें और अनावश्यक विस्तार से बचें।",
-        "hinglish": "Answer mein relevant points rakho aur unnecessary extra explanation avoid karo.",
-        "english": "Prioritise relevant points and avoid unnecessary elaboration in answers."
-      },
-      {
-        "id": "hi01-007",
-        "type": "revision",
-        "hindi": "अध्याय की पुनरावृत्ति करते समय पहले मुख्य विचार, फिर प्रमुख बिंदु और अंत में प्रश्नों का अभ्यास करें।",
-        "hinglish": "Revision order rakho: main idea, key points, then questions.",
-        "english": "For revision, review the central idea, key points and then practise questions."
-      }
-    ],
-    "sourceMetadata": [
-      {
-        "sourceType": "official",
-        "sourceName": "UBSE",
-        "sourceVersion": "2026-27",
-        "verified": true,
-        "board": "UBSE"
-      },
-      {
-        "sourceType": "official-reference",
-        "sourceName": "NCERT",
-        "sourceVersion": "current",
-        "verified": true,
-        "board": "BOTH"
-      }
-    ],
-    "contentPlan": {
-      "noteTarget": {
-        "minimum": 50,
-        "maximum": 100
-      },
-      "languages": [
-        "Hindi",
-        "Hinglish",
-        "English"
-      ],
-      "coreModules": [
-        "overview",
-        "learning-objectives",
-        "concepts",
-        "chapter-notes",
-        "definitions",
-        "keywords",
-        "literary-elements",
-        "important-points",
-        "common-mistakes",
-        "answer-writing",
-        "mcq",
-        "short-answer",
-        "long-answer",
-        "competency",
-        "revision",
-        "one-page-revision",
-        "flashcards",
-        "chapter-quiz"
-      ]
-    }
-  }
+    "subject":  "Hindi",
+    "board":  "UBSE",
+    "class":  10,
+    "session":  "2026-27",
+    "chapter":  {
+                    "id":  "hindi-01",
+                    "chapterNumber":  1,
+                    "title":  "क्षितिज / पाठ 1",
+                    "status":  "content-ready",
+                    "language":  {
+                                     "english":  "This chapter package will contain original academic explanations and structured revision material.",
+                                     "hindi":  "इस अध्याय के लिए मौलिक, सरल और परीक्षा-केंद्रित अध्ययन सामग्री यहाँ व्यवस्थित की जाएगी।",
+                                     "hinglish":  "Is chapter ko simple Hinglish mein concept-first tareeke se samjhaya jayega."
+                                 },
+                    "learningObjectives":  [
+                                               "पाठ की केंद्रीय भावना और विचार को समझना",
+                                               "प्रमुख साहित्यिक तत्वों को पहचानना",
+                                               "पाठ से जुड़े शब्दों और अभिव्यक्तियों को समझना",
+                                               "पाठ-आधारित प्रश्नों के उत्तर संरचित रूप में देना"
+                                           ],
+                    "notesTarget":  {
+                                        "minimum":  50,
+                                        "maximum":  100,
+                                        "fillerAllowed":  false
+                                    },
+                    "modules":  [
+                                    "overview",
+                                    "concepts",
+                                    "definitions",
+                                    "keywords",
+                                    "literary-elements",
+                                    "important-points",
+                                    "common-mistakes",
+                                    "answer-writing",
+                                    "mcq",
+                                    "short-answer",
+                                    "long-answer",
+                                    "revision",
+                                    "flashcards",
+                                    "expert-modules"
+                                ],
+                    "expertModules":  {
+                                          "enabled":  true,
+                                          "noteTarget":  {
+                                                             "minimum":  50,
+                                                             "maximum":  100
+                                                         },
+                                          "formats":  [
+                                                          "concept-breakdown",
+                                                          "easy-explanation",
+                                                          "exam-tip",
+                                                          "memory-trick",
+                                                          "common-confusion",
+                                                          "answer-framework",
+                                                          "revision-tip",
+                                                          "thinking-question"
+                                                      ]
+                                      },
+                    "contentNotes":  [
+                                         {
+                                             "id":  "hi01-001",
+                                             "type":  "overview",
+                                             "hindi":  "अध्याय को समझने की शुरुआत उसके केंद्रीय विचार, भाव और लेखक के उद्देश्य से की जाएगी।",
+                                             "hinglish":  "Sabse pehle chapter ka central idea, emotion aur writer ka purpose samjho.",
+                                             "english":  "Begin by identifying the chapter\u0027s central idea, emotional core and authorial purpose."
+                                         },
+                                         {
+                                             "id":  "hi01-002",
+                                             "type":  "study-method",
+                                             "hindi":  "किसी साहित्यिक पाठ को प्रभावी ढंग से पढ़ने के लिए घटनाओं, पात्रों, विचारों और भाषा के संबंध को देखना चाहिए।",
+                                             "hinglish":  "Literature ko sirf story ki tarah nahi, balki characters, ideas aur language ke connection ke saath padho.",
+                                             "english":  "Study a literary text through the relationship between events, characters, ideas and language."
+                                         },
+                                         {
+                                             "id":  "hi01-003",
+                                             "type":  "answer-writing",
+                                             "hindi":  "साहित्यिक प्रश्न के उत्तर में प्रश्न के मुख्य शब्दों को पहचानकर उसी के अनुसार उत्तर को व्यवस्थित करना चाहिए।",
+                                             "hinglish":  "Question ke keywords pakdo aur answer ko unhi points ke around structure karo.",
+                                             "english":  "Identify the key terms in the question and structure the answer around them."
+                                         },
+                                         {
+                                             "id":  "hi01-004",
+                                             "type":  "concept",
+                                             "hindi":  "पाठ के केंद्रीय विचार को समझने के लिए उसके विषय, भाव और लेखक के दृष्टिकोण को साथ में देखना चाहिए।",
+                                             "hinglish":  "Central idea samajhne ke liye topic, emotion aur writer ka viewpoint teenon ko saath dekho.",
+                                             "english":  "Understand the central idea by connecting the topic, emotion and authorial viewpoint."
+                                         },
+                                         {
+                                             "id":  "hi01-005",
+                                             "type":  "reading-skill",
+                                             "hindi":  "साहित्यिक पाठ पढ़ते समय महत्वपूर्ण शब्दों और विचारों को अलग पहचानना उपयोगी होता है।",
+                                             "hinglish":  "Reading ke time important words aur ideas ko mark karna understanding ko easy banata hai.",
+                                             "english":  "Identifying important words and ideas improves comprehension of a literary text."
+                                         },
+                                         {
+                                             "id":  "hi01-006",
+                                             "type":  "answer-writing",
+                                             "hindi":  "उत्तर में पाठ से संबंधित सटीक बिंदुओं को प्राथमिकता दें और अनावश्यक विस्तार से बचें।",
+                                             "hinglish":  "Answer mein relevant points rakho aur unnecessary extra explanation avoid karo.",
+                                             "english":  "Prioritise relevant points and avoid unnecessary elaboration in answers."
+                                         },
+                                         {
+                                             "id":  "hi01-007",
+                                             "type":  "revision",
+                                             "hindi":  "अध्याय की पुनरावृत्ति करते समय पहले मुख्य विचार, फिर प्रमुख बिंदु और अंत में प्रश्नों का अभ्यास करें।",
+                                             "hinglish":  "Revision order rakho: main idea, key points, then questions.",
+                                             "english":  "For revision, review the central idea, key points and then practise questions."
+                                         }
+                                     ],
+                    "sourceMetadata":  [
+                                           {
+                                               "sourceType":  "official",
+                                               "sourceName":  "UBSE",
+                                               "sourceVersion":  "2026-27",
+                                               "verified":  true,
+                                               "board":  "UBSE"
+                                           },
+                                           {
+                                               "sourceType":  "official-reference",
+                                               "sourceName":  "NCERT",
+                                               "sourceVersion":  "current",
+                                               "verified":  true,
+                                               "board":  "BOTH"
+                                           }
+                                       ],
+                    "contentPlan":  {
+                                        "noteTarget":  {
+                                                           "minimum":  50,
+                                                           "maximum":  100
+                                                       },
+                                        "languages":  [
+                                                          "Hindi",
+                                                          "Hinglish",
+                                                          "English"
+                                                      ],
+                                        "coreModules":  [
+                                                            "overview",
+                                                            "learning-objectives",
+                                                            "concepts",
+                                                            "chapter-notes",
+                                                            "definitions",
+                                                            "keywords",
+                                                            "literary-elements",
+                                                            "important-points",
+                                                            "common-mistakes",
+                                                            "answer-writing",
+                                                            "mcq",
+                                                            "short-answer",
+                                                            "long-answer",
+                                                            "competency",
+                                                            "revision",
+                                                            "one-page-revision",
+                                                            "flashcards",
+                                                            "chapter-quiz"
+                                                        ]
+                                    }
+                }
 }
