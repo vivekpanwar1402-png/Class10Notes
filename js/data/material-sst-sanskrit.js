@@ -178,13 +178,12 @@ NBM_MATERIAL.science={
     {id:"sci-05",title:{en:"Life Processes",hi:"जैव प्रक्रम",hinglish:"Life Processes"},topics:["nutrition","respiration","transportation","excretion","human systems"]},
     {id:"sci-06",title:{en:"Control and Coordination",hi:"नियंत्रण एवं समन्वय",hinglish:"Control aur Coordination"},topics:["nervous system","reflex action","brain","hormones","plant coordination"]},
     {id:"sci-07",title:{en:"How Do Organisms Reproduce?",hi:"जीव जनन कैसे करते हैं?",hinglish:"Organisms Reproduce Kaise Karte Hain?"},topics:["asexual reproduction","sexual reproduction","human reproduction","reproductive health"]},
-    {id:"sci-08",title:{en:"Heredity",hi:"आनुवंशिकता",hinglish:"Heredity"},topics:["genes","traits","Mendel","inheritance","sex determination","evolution"]},
+    {id:"sci-08",title:{en:"Heredity",hi:"आनुवंशिकता",hinglish:"Heredity"},topics:["genes","traits","Mendel","inheritance","sex determination"]},
     {id:"sci-09",title:{en:"Light – Reflection and Refraction",hi:"प्रकाश – परावर्तन तथा अपवर्तन",hinglish:"Light – Reflection aur Refraction"},topics:["reflection","mirror formula","magnification","refraction","lens formula","power of lens"]},
     {id:"sci-10",title:{en:"The Human Eye and the Colourful World",hi:"मानव नेत्र तथा रंगीन संसार",hinglish:"Human Eye aur Colourful World"},topics:["eye structure","accommodation","defects of vision","dispersion","atmospheric refraction"]},
     {id:"sci-11",title:{en:"Electricity",hi:"विद्युत",hinglish:"Electricity"},topics:["current","potential difference","Ohm's law","resistance","series and parallel","electric power"]},
     {id:"sci-12",title:{en:"Magnetic Effects of Electric Current",hi:"विद्युत धारा के चुंबकीय प्रभाव",hinglish:"Magnetic Effects of Electric Current"},topics:["magnetic field","field lines","solenoid","electromagnetic induction","electric motor","generator"]},
-    {id:"sci-13",title:{en:"Our Environment",hi:"हमारा पर्यावरण",hinglish:"Our Environment"},topics:["ecosystem","food chain","food web","biodegradable waste","ozone"]},
-    {id:"sci-14",title:{en:"Sustainable Management of Natural Resources",hi:"प्राकृतिक संसाधनों का सतत प्रबंधन",hinglish:"Natural Resources ka Sustainable Management"},topics:["forest conservation","water management","coal and petroleum","three R's","sustainable development"]}
+    {id:"sci-13",title:{en:"Our Environment",hi:"हमारा पर्यावरण",hinglish:"Our Environment"},topics:["ecosystem","food chain","food web","biodegradable waste","ozone"]}
   ]
 };
 
