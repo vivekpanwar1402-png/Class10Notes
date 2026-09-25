@@ -1,0 +1,98 @@
+﻿{
+    "subject":  "Hindi",
+    "board":  "UBSE",
+    "class":  10,
+    "session":  "2026-27",
+    "source":  "Official UBSE syllabus",
+    "books":  [
+                  "क्षितिज भाग-2",
+                  "कृतिका भाग-2"
+              ],
+    "chapterCount":  12,
+    "chapters":  [
+                     {
+                         "title":  "सूरदास",
+                         "number":  1,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-01",
+                         "type":  "poetry"
+                     },
+                     {
+                         "title":  "राम-लक्ष्मण-परशुराम संवाद",
+                         "number":  2,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-02",
+                         "type":  "poetry"
+                     },
+                     {
+                         "title":  "आत्मकथ्य",
+                         "number":  3,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-03",
+                         "type":  "poetry"
+                     },
+                     {
+                         "title":  "उत्साह और अट नहीं रही है",
+                         "number":  4,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-04",
+                         "type":  "poetry"
+                     },
+                     {
+                         "title":  "यह दंतुरित मुस्कान और फसल",
+                         "number":  5,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-05",
+                         "type":  "poetry"
+                     },
+                     {
+                         "title":  "संगतकार",
+                         "number":  6,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-06",
+                         "type":  "poetry"
+                     },
+                     {
+                         "id":  "hindi-kshitij-07",
+                         "type":  "prose",
+                         "number":  7,
+                         "title":  "नेताजी का चश्मा",
+                         "book":  "क्षितिज भाग-2"
+                     },
+                     {
+                         "title":  "बालगोबिन भगत",
+                         "number":  8,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-08",
+                         "type":  "prose"
+                     },
+                     {
+                         "title":  "एक कहानी यह भी",
+                         "number":  9,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-09",
+                         "type":  "prose"
+                     },
+                     {
+                         "title":  "नौबतखाने में इबादत",
+                         "number":  10,
+                         "book":  "क्षितिज भाग-2",
+                         "id":  "hindi-kshitij-10",
+                         "type":  "prose"
+                     },
+                     {
+                         "title":  "माता का आँचल",
+                         "number":  1,
+                         "book":  "कृतिका भाग-2",
+                         "id":  "hindi-kritika-01",
+                         "type":  "supplementary"
+                     },
+                     {
+                         "title":  "साना-साना हाथ जोड़ि...",
+                         "number":  2,
+                         "book":  "कृतिका भाग-2",
+                         "id":  "hindi-kritika-02",
+                         "type":  "supplementary"
+                     }
+                 ]
+}

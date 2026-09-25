@@ -1,0 +1,51 @@
+﻿{
+    "subject":  "Hindi",
+    "board":  "UBSE",
+    "class":  10,
+    "session":  "2026-27",
+    "chapter":  {
+                    "id":  "hindi-kshitij-05",
+                    "book":  "क्षितिज भाग-2",
+                    "chapterNumber":  5,
+                    "title":  "यह दंतुरित मुस्कान और फसल",
+                    "contentType":  "poetry",
+                    "status":  "structure-ready",
+                    "sourceMetadata":  [
+                                           {
+                                               "sourceType":  "official",
+                                               "sourceName":  "UBSE",
+                                               "sourceVersion":  "2026-27",
+                                               "verified":  true,
+                                               "board":  "UBSE"
+                                           },
+                                           {
+                                               "sourceType":  "official-reference",
+                                               "sourceName":  "NCERT",
+                                               "sourceVersion":  "latest edition",
+                                               "verified":  true,
+                                               "board":  "BOTH"
+                                           }
+                                       ],
+                    "modules":  [
+                                    "overview",
+                                    "learning-objectives",
+                                    "concepts",
+                                    "chapter-notes",
+                                    "definitions",
+                                    "keywords",
+                                    "literary-elements",
+                                    "important-points",
+                                    "common-mistakes",
+                                    "answer-writing",
+                                    "mcq",
+                                    "short-answer",
+                                    "long-answer",
+                                    "competency",
+                                    "revision",
+                                    "one-page-revision",
+                                    "flashcards",
+                                    "chapter-quiz",
+                                    "expert-modules"
+                                ]
+                }
+}
