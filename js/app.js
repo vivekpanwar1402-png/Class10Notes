@@ -154,7 +154,8 @@ function home(){
       </div>
       <div class="subjects-grid">${subjectCards()}</div>
     </section>
-      ${renderMaterialPreview()}`r`n  `;
+      ${renderMaterialPreview()}
+  `;
 }
 function dates(){
   renderNav("dates");
@@ -401,6 +402,7 @@ renderHeader();
 route();
 
 window.addEventListener("hashchange",route);
+
 
 
 
