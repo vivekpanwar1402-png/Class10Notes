@@ -6,6 +6,15 @@ import {
   getTheme,
   toggleTheme
 } from "./core/theme.js";
+import {
+  ensureChapterView,
+  ensureSubjectView,
+  escapeHtml,
+  getChapterView,
+  getSubjectView,
+  isStructuredSubject,
+  pickLang
+} from "./core/subject-material-bridge.js";
 
 const app=document.querySelector("#app");
 
@@ -316,7 +325,102 @@ function materialKeyForSubject(id){
   return aliases[String(id||"").toLowerCase()] || String(id||"").toLowerCase();
 }
 
+/* ------------------------------------------------------------
+   Structured subject material
+   Reads the already-existing subject data modules through
+   js/core/subject-material-bridge.js. The legacy
+   window.NBM_MATERIAL path is left untouched.
+------------------------------------------------------------- */
+
+function bridgeText(value){
+  return pickLang(value,NBM_LANGUAGE.current);
+}
+
+function structuredSubjectLabel(id){
+  return SUBJECTS.find(item=>item.id===id)?.name||id||"Subject";
+}
+
+/* Repaint the current route once its data module has loaded, so a
+   static-first render cannot leave a half-loaded page behind. */
+function reloadStructuredRoute(id,chapterId){
+  const task=chapterId
+    ? ensureChapterView(id,chapterId)
+    : ensureSubjectView(id);
+
+  task.then(view=>{
+    if(view&&stillOnRoute(id,chapterId)) route();
+  });
+}
+
+function stillOnRoute(id,chapterId){
+  const parts=location.hash.replace(/^#/,"").split("/");
+
+  if(parts[0]!=="subject") return false;
+  if(String(parts[1]||"").toLowerCase()!==String(id||"").toLowerCase()) return false;
+
+  return (parts[2]||"")===(chapterId||"");
+}
+
+function structuredChapterCard(view,chapter){
+  const topics=(chapter.topics||[]).map(topic=>`
+    <div class="material-topic">
+      <strong>${escapeHtml(bridgeText(topic.title))}</strong>
+      ${topic.note?`<p>${escapeHtml(bridgeText(topic.note))}</p>`:""}
+    </div>
+  `).join("");
+
+  const unit=chapter.unitName
+    ?`<p class="muted">${escapeHtml(bridgeText(chapter.unitName))}${
+        chapter.unitMarks?` · ${chapter.unitMarks} marks`:""
+      }</p>`
+    :"";
+
+  return `
+    <article class="card material-content interactive">
+      <div class="eyebrow">
+        ${escapeHtml(bridgeText(view.name))}${chapter.number?` · ${String(chapter.number).padStart(2,"0")}`:""}
+      </div>
+
+      <h3>${escapeHtml(bridgeText(chapter.title))}</h3>
+
+      ${topics}
+      ${unit}
+
+      ${chapter.hasContent
+        ?`<a class="card-link" href="#subject/${encodeURIComponent(view.subjectId)}/${encodeURIComponent(chapter.id)}">Open chapter →</a>`
+        :""}
+    </article>
+  `;
+}
+
+function renderStructuredSubject(view){
+  return `
+    <section class="section material-section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Study Material</div>
+          <h2>${escapeHtml(bridgeText(view.name))}</h2>
+        </div>
+
+        ${renderMaterialLanguageControl()}
+      </div>
+
+      <div class="material-grid">
+        ${view.chapters.map(chapter=>structuredChapterCard(view,chapter)).join("")}
+      </div>
+    </section>
+  `;
+}
+
 function renderSubjectMaterial(id){
+  const structured=getSubjectView(id);
+
+  if(structured) return renderStructuredSubject(structured);
+
+  /* A known structured subject that is not in memory yet: keep the
+     legacy material visible and repaint once the module has loaded. */
+  if(isStructuredSubject(id)) reloadStructuredRoute(id);
+
   const key=materialKeyForSubject(id);
   const data=NBM_MATERIAL?.[key];
 
@@ -402,6 +506,175 @@ function subject(id){
   `;
 }
 
+/* ------------------------------------------------------------
+   Chapter detail view  (#subject/<subject-id>/<chapter-id>)
+------------------------------------------------------------- */
+
+function chapterSectionCard(section){
+  const label=escapeHtml(section.label);
+
+  if(section.kind==="text"){
+    return `
+      <article class="card material-content interactive">
+        <div class="eyebrow">${label}</div>
+        <p>${escapeHtml(section.text)}</p>
+      </article>
+    `;
+  }
+
+  if(section.kind==="chips"){
+    return `
+      <article class="card material-content interactive">
+        <div class="eyebrow">${label}</div>
+        <div class="material-topic-list">
+          ${section.items.map(item=>`<span>${escapeHtml(item)}</span>`).join("")}
+        </div>
+      </article>
+    `;
+  }
+
+  if(section.kind==="counts"){
+    return `
+      <article class="card material-content interactive">
+        <div class="eyebrow">${label}</div>
+        <div class="material-topic-list">
+          ${section.rows.map(row=>`<span>${escapeHtml(row.title)} · ${row.value}</span>`).join("")}
+        </div>
+      </article>
+    `;
+  }
+
+  if(section.kind==="list"){
+    return `
+      <article class="card material-content interactive">
+        <div class="eyebrow">${label}</div>
+        ${section.items.map(item=>`
+          <div class="material-topic"><p>${escapeHtml(item)}</p></div>
+        `).join("")}
+      </article>
+    `;
+  }
+
+  return `
+    <article class="card material-content interactive">
+      <div class="eyebrow">${label}</div>
+      ${(section.rows||[]).map(row=>`
+        <div class="material-topic">
+          ${row.title?`<strong>${escapeHtml(row.title)}</strong>`:""}
+          ${row.body?`<p>${escapeHtml(row.body)}</p>`:""}
+        </div>
+      `).join("")}
+    </article>
+  `;
+}
+
+function chapterMetaLine(view){
+  const parts=[];
+
+  if(view.unitName) parts.push(escapeHtml(bridgeText(view.unitName)));
+  if(view.unitMarks) parts.push(`${view.unitMarks} marks`);
+  if(view.totalQuestions) parts.push(`${view.totalQuestions} questions`);
+  if(view.board) parts.push(escapeHtml(view.board));
+  if(view.session) parts.push(escapeHtml(view.session));
+
+  return parts.join(" · ");
+}
+
+function chapterHero(id,view){
+  return `
+    <section class="hero">
+      <div class="eyebrow">
+        ${escapeHtml(bridgeText(view.subjectName))}${view.number?` · Chapter ${String(view.number).padStart(2,"0")}`:""}
+      </div>
+
+      <h1>${escapeHtml(bridgeText(view.title))}</h1>
+
+      <p>${chapterMetaLine(view)}</p>
+
+      <a class="card-link" href="#subject/${encodeURIComponent(id)}">
+        ← All ${escapeHtml(bridgeText(view.subjectName))} chapters
+      </a>
+    </section>
+  `;
+}
+
+function chapterMarkup(id,view){
+  return `
+    ${chapterHero(id,view)}
+
+    <section class="section material-section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">Study Material</div>
+          <h2>${escapeHtml(bridgeText(view.subjectName))}</h2>
+        </div>
+
+        ${renderMaterialLanguageControl()}
+      </div>
+
+      <div class="material-grid">
+        ${view.sections.length
+          ?view.sections.map(section=>chapterSectionCard(section)).join("")
+          :`<article class="card material-content interactive">
+              <div class="eyebrow">Chapter</div>
+              <p class="muted">Chapter notes are being prepared.</p>
+            </article>`}
+      </div>
+    </section>
+  `;
+}
+
+function chapterPlaceholder(id,title,message){
+  return `
+    <section class="hero">
+      <div class="eyebrow">${escapeHtml(structuredSubjectLabel(id))}</div>
+      <h1>${escapeHtml(structuredSubjectLabel(id))}</h1>
+      <p>Chapter-wise notes, concepts and revision material.</p>
+    </section>
+
+    <section class="empty-state">
+      <h2>${escapeHtml(title)}</h2>
+      <p class="muted" style="margin-top:8px">${escapeHtml(message)}</p>
+      <a class="card-link" href="#subject/${encodeURIComponent(id)}">
+        ← Back to ${escapeHtml(structuredSubjectLabel(id))}
+      </a>
+    </section>
+  `;
+}
+
+function subjectChapter(id,chapterId){
+  renderNav("home");
+
+  const cached=getChapterView(id,chapterId);
+
+  if(cached&&cached.hasContent){
+    app.innerHTML=chapterMarkup(id,cached);
+    return;
+  }
+
+  /* Metadata known but the chapter package still to be fetched: paint
+     the summary first, then repaint once ensureChapterView resolves. */
+  app.innerHTML=cached
+    ?chapterMarkup(id,cached)
+    :chapterPlaceholder(
+      id,
+      "Opening chapter",
+      "Loading the study material for this chapter."
+    );
+
+  ensureChapterView(id,chapterId).then(view=>{
+    if(!stillOnRoute(id,chapterId)) return;
+
+    app.innerHTML=view
+      ?chapterMarkup(id,view)
+      :chapterPlaceholder(
+        id,
+        "Chapter not found",
+        "This chapter is not part of the published syllabus data."
+      );
+  });
+}
+
 function route(){
   const path=location.hash.replace(/^#/,"")||"home";
 
@@ -413,7 +686,11 @@ function route(){
   if(path==="subjects")return subjects();
 
   if(path.startsWith("subject/")){
-    return subject(path.split("/")[1]);
+    const parts=path.split("/");
+
+    if(parts[2]) return subjectChapter(parts[1],parts[2]);
+
+    return subject(parts[1]);
   }
 
   home();
